@@ -1,0 +1,15 @@
+---
+import MedicationList from '../components/MedicationList';
+import TabNav from '../components/TabNav';
+---
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ObatLog — 薬リスト</title>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <MedicationList client:only="react" />
+    <TabNav active="medications" client:only="react" />
+  </body>
+</html>
