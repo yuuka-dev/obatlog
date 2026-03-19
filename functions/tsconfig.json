@@ -9,5 +9,6 @@
     "target": "es2020"
   },
   "compileOnSave": true,
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/tests", "src/scripts"]
 }
