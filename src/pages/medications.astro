@@ -1,6 +1,5 @@
 ---
-import MedicationList from '../components/MedicationList';
-import TabNav from '../components/TabNav';
+import MedicationsPage from '../components/MedicationsPage';
 ---
 <html lang="ja">
   <head>
@@ -9,7 +8,6 @@ import TabNav from '../components/TabNav';
     <title>ObatLog — 薬リスト</title>
   </head>
   <body class="bg-gray-50 min-h-screen">
-    <MedicationList client:only="react" />
-    <TabNav active="medications" client:only="react" />
+    <MedicationsPage client:only="react" />
   </body>
 </html>

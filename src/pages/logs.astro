@@ -1,6 +1,5 @@
 ---
-import LogList from '../components/LogList';
-import TabNav from '../components/TabNav';
+import LogsPage from '../components/LogsPage';
 ---
 <html lang="ja">
   <head>
@@ -9,7 +8,6 @@ import TabNav from '../components/TabNav';
     <title>ObatLog — ログ</title>
   </head>
   <body class="bg-gray-50 min-h-screen">
-    <LogList client:only="react" />
-    <TabNav active="logs" client:only="react" />
+    <LogsPage client:only="react" />
   </body>
 </html>

@@ -1,6 +1,5 @@
 ---
-import IntakeForm from '../components/IntakeForm';
-import TabNav from '../components/TabNav';
+import HomePage from '../components/HomePage';
 ---
 <html lang="ja">
   <head>
@@ -9,7 +8,6 @@ import TabNav from '../components/TabNav';
     <title>ObatLog</title>
   </head>
   <body class="bg-gray-50 min-h-screen">
-    <IntakeForm client:only="react" />
-    <TabNav active="home" client:only="react" />
+    <HomePage client:only="react" />
   </body>
 </html>
