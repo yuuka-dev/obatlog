@@ -16,7 +16,8 @@ medicationsRouter.get('/', verifyToken, async (req, res) => {
       .get();
     const meds = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     return res.json(meds);
-  } catch {
+  } catch (e) {
+    console.error('medications error:', e);
     return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to list medications.' } });
   }
 });
@@ -41,7 +42,8 @@ medicationsRouter.post('/', verifyToken, async (req, res) => {
       updatedAt: now,
     });
     return res.status(201).json({ id: ref.id, userId: uid, name: name.trim(), limitPerDay });
-  } catch {
+  } catch (e) {
+    console.error('medications error:', e);
     return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to create medication.' } });
   }
 });
@@ -57,18 +59,22 @@ medicationsRouter.put('/:id', verifyToken, async (req, res) => {
     if (!doc.exists) return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Medication not found.' } });
     if (doc.data()?.userId !== uid) return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Access denied.' } });
 
-    const updates: Record<string, unknown> = { updatedAt: admin.firestore.FieldValue.serverTimestamp() };
+    const firestoreUpdates: Record<string, unknown> = { updatedAt: admin.firestore.FieldValue.serverTimestamp() };
     if (name !== undefined) {
       if (typeof name !== 'string' || name.trim() === '') return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'name must be a non-empty string.' } });
-      updates.name = name.trim();
+      firestoreUpdates.name = name.trim();
     }
     if (limitPerDay !== undefined) {
       if (!Number.isInteger(limitPerDay) || limitPerDay <= 0) return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'limitPerDay must be a positive integer.' } });
-      updates.limitPerDay = limitPerDay;
+      firestoreUpdates.limitPerDay = limitPerDay;
     }
-    await ref.update(updates);
-    return res.json({ id, ...doc.data(), ...updates });
-  } catch {
+    await ref.update(firestoreUpdates);
+    const responseData: Record<string, unknown> = { id, ...doc.data() };
+    if (firestoreUpdates.name) responseData.name = firestoreUpdates.name;
+    if (firestoreUpdates.limitPerDay !== undefined) responseData.limitPerDay = firestoreUpdates.limitPerDay;
+    return res.json(responseData);
+  } catch (e) {
+    console.error('medications error:', e);
     return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to update medication.' } });
   }
 });
@@ -84,7 +90,8 @@ medicationsRouter.delete('/:id', verifyToken, async (req, res) => {
     if (doc.data()?.userId !== uid) return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Access denied.' } });
     await ref.delete();
     return res.status(204).send();
-  } catch {
+  } catch (e) {
+    console.error('medications error:', e);
     return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to delete medication.' } });
   }
 });
