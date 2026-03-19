@@ -1,4 +1,4 @@
-// 薬リスト + 追加・編集・削除
+// 薬リスト + 追加・編集・削除（エラーハンドリング付き）
 import { useState, useEffect } from 'react';
 import { listMedications, deleteMedication, type Medication } from '../api/medications';
 import MedicationForm from './MedicationForm';
@@ -12,6 +12,8 @@ export default function MedicationList() {
   const [showForm, setShowForm] = useState(false);
   const [editTarget, setEditTarget] = useState<Medication | undefined>();
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState('');
+  const [deleteError, setDeleteError] = useState('');
 
   useEffect(() => {
     // 認証確認後にデータ取得
@@ -19,6 +21,8 @@ export default function MedicationList() {
       if (!user) { window.location.href = '/login'; return; }
       try {
         setMeds(await listMedications());
+      } catch {
+        setFetchError(t('toast.error' as any, lang));
       } finally {
         setLoading(false);
       }
@@ -28,8 +32,12 @@ export default function MedicationList() {
 
   async function handleDelete(id: string) {
     if (!confirm(t('medications.confirmDelete', lang))) return;
-    await deleteMedication(id);
-    setMeds(prev => prev.filter(m => m.id !== id));
+    try {
+      await deleteMedication(id);
+      setMeds(prev => prev.filter(m => m.id !== id));
+    } catch {
+      setDeleteError(t('toast.error' as any, lang));
+    }
   }
 
   function handleSuccess(med: Medication) {
@@ -44,7 +52,7 @@ export default function MedicationList() {
   if (loading) return <p className="text-center py-8 text-gray-400">{t('common.loading', lang)}</p>;
 
   return (
-    <div className="pb-20 px-4 pt-4 space-y-3">
+    <div className="space-y-3">
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold text-gray-800">{t('medications.title', lang)}</h1>
         <button onClick={() => { setEditTarget(undefined); setShowForm(true); }}
@@ -52,6 +60,9 @@ export default function MedicationList() {
           + {t('common.add', lang)}
         </button>
       </div>
+
+      {fetchError && <p className="text-sm text-amber-700 bg-amber-50 rounded p-2">{fetchError}</p>}
+      {deleteError && <p className="text-sm text-amber-700 bg-amber-50 rounded p-2">{deleteError}</p>}
 
       {showForm && (
         <MedicationForm
@@ -72,11 +83,11 @@ export default function MedicationList() {
             </div>
             <div className="flex gap-2">
               <button onClick={() => { setEditTarget(med); setShowForm(true); }}
-                className="text-sm text-amber-500 hover:text-amber-700">
+                className="text-sm text-amber-500 hover:text-amber-700 p-2">
                 {t('common.edit', lang)}
               </button>
               <button onClick={() => handleDelete(med.id)}
-                className="text-sm text-gray-400 hover:text-amber-600">
+                className="text-sm text-gray-400 hover:text-amber-600 p-2">
                 {t('common.delete', lang)}
               </button>
             </div>
