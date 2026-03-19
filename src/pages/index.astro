@@ -1,0 +1,15 @@
+---
+import IntakeForm from '../components/IntakeForm';
+import TabNav from '../components/TabNav';
+---
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ObatLog</title>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <IntakeForm client:only="react" />
+    <TabNav active="home" client:only="react" />
+  </body>
+</html>
