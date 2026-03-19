@@ -5,6 +5,7 @@ import * as admin from 'firebase-admin';
 // AuthenticatedRequest: uid が付与されたリクエスト型
 export interface AuthenticatedRequest extends Request {
   uid: string;
+  email: string;
 }
 
 // verifyToken: Authorizationヘッダーの idToken を検証し uid をセット
@@ -22,6 +23,7 @@ export async function verifyToken(
   try {
     const decoded = await admin.auth().verifyIdToken(token);
     (req as AuthenticatedRequest).uid = decoded.uid;
+    (req as AuthenticatedRequest).email = decoded.email ?? '';
     next();
   } catch {
     res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid or expired token.' } });
