@@ -39,3 +39,5 @@ export const api = onRequest(
   { region: 'asia-northeast1', timeoutSeconds: 60 },
   app
 );
+
+export { sendMedicationReminders } from './notify';
