@@ -1,3 +1,90 @@
-// medications ルーター（後でTask 6で実装）
+// 薬 CRUD ハンドラー
 import { Router } from 'express';
+import * as admin from 'firebase-admin';
+import { verifyToken, AuthenticatedRequest } from './middleware/auth';
+
 export const medicationsRouter = Router();
+const db = admin.firestore();
+
+// GET /v1/medications — ユーザーの薬一覧取得
+medicationsRouter.get('/', verifyToken, async (req, res) => {
+  const { uid } = req as AuthenticatedRequest;
+  try {
+    const snap = await db.collection('medications')
+      .where('userId', '==', uid)
+      .orderBy('createdAt', 'asc')
+      .get();
+    const meds = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    return res.json(meds);
+  } catch {
+    return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to list medications.' } });
+  }
+});
+
+// POST /v1/medications — 薬を登録
+medicationsRouter.post('/', verifyToken, async (req, res) => {
+  const { uid } = req as AuthenticatedRequest;
+  const { name, limitPerDay } = req.body;
+  if (!name || typeof name !== 'string' || name.trim() === '') {
+    return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'name is required.' } });
+  }
+  if (!Number.isInteger(limitPerDay) || limitPerDay <= 0) {
+    return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'limitPerDay must be a positive integer.' } });
+  }
+  try {
+    const now = admin.firestore.FieldValue.serverTimestamp();
+    const ref = await db.collection('medications').add({
+      userId: uid,
+      name: name.trim(),
+      limitPerDay,
+      createdAt: now,
+      updatedAt: now,
+    });
+    return res.status(201).json({ id: ref.id, userId: uid, name: name.trim(), limitPerDay });
+  } catch {
+    return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to create medication.' } });
+  }
+});
+
+// PUT /v1/medications/:id — 薬を更新（name / limitPerDay のみ）
+medicationsRouter.put('/:id', verifyToken, async (req, res) => {
+  const { uid } = req as AuthenticatedRequest;
+  const id = req.params['id'] as string;
+  const { name, limitPerDay } = req.body;
+  try {
+    const ref = db.collection('medications').doc(id);
+    const doc = await ref.get();
+    if (!doc.exists) return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Medication not found.' } });
+    if (doc.data()?.userId !== uid) return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Access denied.' } });
+
+    const updates: Record<string, unknown> = { updatedAt: admin.firestore.FieldValue.serverTimestamp() };
+    if (name !== undefined) {
+      if (typeof name !== 'string' || name.trim() === '') return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'name must be a non-empty string.' } });
+      updates.name = name.trim();
+    }
+    if (limitPerDay !== undefined) {
+      if (!Number.isInteger(limitPerDay) || limitPerDay <= 0) return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'limitPerDay must be a positive integer.' } });
+      updates.limitPerDay = limitPerDay;
+    }
+    await ref.update(updates);
+    return res.json({ id, ...doc.data(), ...updates });
+  } catch {
+    return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to update medication.' } });
+  }
+});
+
+// DELETE /v1/medications/:id — 薬をハード削除
+medicationsRouter.delete('/:id', verifyToken, async (req, res) => {
+  const { uid } = req as AuthenticatedRequest;
+  const id = req.params['id'] as string;
+  try {
+    const ref = db.collection('medications').doc(id);
+    const doc = await ref.get();
+    if (!doc.exists) return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Medication not found.' } });
+    if (doc.data()?.userId !== uid) return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Access denied.' } });
+    await ref.delete();
+    return res.status(204).send();
+  } catch {
+    return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to delete medication.' } });
+  }
+});
