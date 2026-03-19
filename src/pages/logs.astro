@@ -1,0 +1,15 @@
+---
+import LogList from '../components/LogList';
+import TabNav from '../components/TabNav';
+---
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ObatLog — ログ</title>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <LogList client:only="react" />
+    <TabNav active="logs" client:only="react" />
+  </body>
+</html>
