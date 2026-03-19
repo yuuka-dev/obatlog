@@ -12,6 +12,10 @@ export interface Intake {
   dateKey: string;
   isOverdose: boolean;
   totalToday: number;
+  cancelled: boolean;
+  isOdLog: boolean;
+  moodTags: string[];
+  memo: string;
 }
 
 export const listIntakesByDate = (dateKey: string) =>
@@ -20,8 +24,15 @@ export const listIntakesByDate = (dateKey: string) =>
 export const listRecentIntakes = (limit = 30) =>
   apiFetch<Intake[]>(`/v1/intakes?limit=${limit}`);
 
-export const createIntake = (medicationId: string, takenUnits: number) =>
-  apiFetch<{ intakeId: string; isOverdose: boolean; totalToday: number }>(
+export const createIntake = (
+  medicationId: string,
+  takenUnits: number,
+  options?: { isOdLog?: boolean; moodTags?: string[]; memo?: string }
+) =>
+  apiFetch<{ intakeId: string; isOverdose: boolean; totalToday: number; dateKey: string }>(
     '/v1/intakes',
-    { method: 'POST', body: JSON.stringify({ medicationId, takenUnits }) }
+    { method: 'POST', body: JSON.stringify({ medicationId, takenUnits, ...options }) }
   );
+
+export const cancelIntake = (intakeId: string) =>
+  apiFetch<void>(`/v1/intakes/${intakeId}`, { method: 'PATCH' });

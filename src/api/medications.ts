@@ -6,6 +6,8 @@ export interface Medication {
   userId: string;
   name: string;
   limitPerDay: number;
+  notifyEnabled: boolean;
+  notifyAt: string[];
 }
 
 export const listMedications = () =>
@@ -17,7 +19,7 @@ export const createMedication = (name: string, limitPerDay: number) =>
     body: JSON.stringify({ name, limitPerDay }),
   });
 
-export const updateMedication = (id: string, data: Partial<Pick<Medication, 'name' | 'limitPerDay'>>) =>
+export const updateMedication = (id: string, data: Partial<Pick<Medication, 'name' | 'limitPerDay' | 'notifyEnabled' | 'notifyAt'>>) =>
   apiFetch<Medication>(`/v1/medications/${id}`, {
     method: 'PUT',
     body: JSON.stringify(data),
