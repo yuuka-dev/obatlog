@@ -61,5 +61,20 @@
   "lp.hero.cta": "Get Started",
   "lp.features.record": "One-tap recording",
   "lp.features.check": "Overdose check",
-  "lp.features.notify": "Reminder notifications"
+  "lp.features.notify": "Reminder notifications",
+  "privacy": "Privacy Policy",
+  "terms": "Terms of Service",
+  "nav.privacy": "Privacy Policy",
+  "nav.terms": "Terms of Service",
+  "nav.settings": "Settings",
+  "auth.forgotPassword": "Forgot password?",
+  "auth.resetPassword": "Send reset email",
+  "auth.resetSent": "Password reset email sent. Please check your inbox.",
+  "settings.title": "Settings",
+  "settings.logout": "Log out",
+  "settings.dangerZone": "Account",
+  "settings.deleteAccount": "Delete account",
+  "settings.deleteConfirm": "Are you sure you want to delete your account? All data will be permanently deleted and cannot be recovered.",
+  "settings.deleteConfirmYes": "Delete",
+  "settings.exportData": "Export data"
 }

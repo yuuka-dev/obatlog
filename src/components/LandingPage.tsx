@@ -48,6 +48,14 @@ export default function LandingPage() {
 
       {/* フッター */}
       <footer className="px-6 py-8 text-center text-xs text-gray-400">
+        <div className="flex justify-center gap-4 mb-2">
+          <a href="/privacy" className="hover:text-gray-600 transition">
+            {t('privacy' as any, lang)}
+          </a>
+          <a href="/terms" className="hover:text-gray-600 transition">
+            {t('terms' as any, lang)}
+          </a>
+        </div>
         © 2026 ObatLog
       </footer>
     </div>
