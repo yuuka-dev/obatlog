@@ -15,7 +15,7 @@ interface ToastProps {
 
 export default function Toast({ items, onDismiss }: ToastProps) {
   return (
-    <div className="fixed bottom-20 md:bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 z-50 space-y-2">
+    <div className="fixed bottom-32 md:bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 z-50 space-y-2">
       {items.map(item => (
         <ToastEntry key={item.id} item={item} onDismiss={() => onDismiss(item.id)} />
       ))}
