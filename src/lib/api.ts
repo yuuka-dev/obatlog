@@ -3,7 +3,7 @@
 // - エラーレスポンスを統一的に変換
 import { auth } from './firebase';
 
-const BASE_URL = import.meta.env.PUBLIC_FUNCTIONS_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_FUNCTIONS_BASE_URL;
 
 export class ApiError extends Error {
   constructor(public status: number, public code: string, message: string) {

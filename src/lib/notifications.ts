@@ -3,7 +3,7 @@ import { getMessaging, getToken } from 'firebase/messaging';
 import { app } from './firebase';
 import { apiFetch } from './api';
 
-const VAPID_KEY = import.meta.env.PUBLIC_FIREBASE_VAPID_KEY;
+const VAPID_KEY = process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY;
 
 // 通知許可を取得し、FCMトークンをサーバーに保存
 export async function requestNotificationPermission(): Promise<void> {
