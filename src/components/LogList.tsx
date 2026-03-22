@@ -80,7 +80,7 @@ export default function LogList() {
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   <span className="text-xs text-gray-400">
-                    {new Date(intake.takenAt.seconds * 1000).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
+                    {new Date((intake.takenAt._seconds ?? intake.takenAt.seconds ?? 0) * 1000).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
                   </span>
                   {intake.isOverdose && <span className="text-amber-400 text-sm">💊</span>}
                 </div>

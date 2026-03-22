@@ -8,7 +8,7 @@ export interface Intake {
   medicationName: string;
   limitPerDaySnapshot: number;
   takenUnits: number;
-  takenAt: { seconds: number };
+  takenAt: { seconds?: number; _seconds?: number };
   dateKey: string;
   isOverdose: boolean;
   totalToday: number;
