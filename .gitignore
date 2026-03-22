@@ -6,7 +6,6 @@
 .env.local
 node_modules/
 dist/
-.astro/
 .next/
 out/
 next-env.d.ts
