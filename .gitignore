@@ -10,6 +10,7 @@ dist/
 .next/
 out/
 next-env.d.ts
+public/sw.js
 .firebase/
 functions/node_modules/
 functions/lib/
