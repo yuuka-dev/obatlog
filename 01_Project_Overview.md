@@ -54,5 +54,5 @@ AI（ClaudeCode / Copilot）と人間が共同で開発する。
 ## 6. 成果物
 - PWA Web アプリ (obatlog.osaka29.jp)
 - Firebase Functions (通知、上限チェック)
-- Azure DevOps Pipeline (CI)
+- Github Actions (CI)
 - ドキュメント一式

@@ -54,7 +54,6 @@
 ---
 
 ## 3. 制約（Constraints）
-- Astro / Firebase 以外の技術は使用禁止
+- Next.js / Firebase 以外の技術は使用禁止
 - DB は Firestore のみ（サブコレ禁止）
 - SW は vite-plugin-pwa のみ
-- Next.js などの別フレームワーク禁止

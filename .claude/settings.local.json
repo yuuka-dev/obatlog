@@ -16,7 +16,23 @@
       "Bash(npx firebase:*)",
       "Bash(rm -rf dist)",
       "Bash(npx astro:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(grep -r \"DELETE\\\\|delete\\\\|deleteUser\\\\|deleteAccount\\\\|account deletion\\\\|data export\" /c/Dev/repo/obatlog/.worktrees/feature-mvp/src --include=*.tsx --include=*.ts --include=*.jsx --include=*.js)",
+      "Bash(ls -la /c/Dev/repo/obatlog/.worktrees/feature-mvp/functions/lib/*.js)",
+      "Bash(grep -E \"\\\\.tsx$\")",
+      "Bash(wc -l /c/Dev/repo/obatlog/.worktrees/feature-mvp/src/components/*.tsx)",
+      "Bash(wc -l /c/Dev/repo/obatlog/.worktrees/feature-mvp/functions/lib/*.js)",
+      "Bash(git branch:*)",
+      "Bash(npx jest:*)",
+      "Bash(npm ci:*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI:/c/Program Files/Git/bin\")",
+      "Bash(gh secret:*)",
+      "Bash(gh pr:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm ls:*)",
+      "Bash(ls -la /c/Dev/repo/obatlog/tailwind.config.*)"
     ]
   }
 }
