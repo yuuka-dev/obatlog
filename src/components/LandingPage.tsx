@@ -38,6 +38,30 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* 利用例スクリーンショット */}
+      <section className="px-6 py-12 max-w-lg mx-auto">
+        <h2 className="text-xl font-bold text-gray-700 text-center mb-6">
+          {t('lp.screenshots.title' as any, lang)}
+        </h2>
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { src: '/sample-home.png', label: t('lp.screenshots.home' as any, lang) },
+            { src: '/sample-medications.png', label: t('lp.screenshots.medications' as any, lang) },
+            { src: '/sample-logs.png', label: t('lp.screenshots.logs' as any, lang) },
+          ].map(item => (
+            <div key={item.src} className="text-center">
+              <img
+                src={item.src}
+                alt={item.label}
+                className="rounded-xl shadow-md border border-gray-100 w-full"
+                loading="lazy"
+              />
+              <p className="text-xs text-gray-500 mt-2">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* フッター */}
       <footer className="px-6 py-8 text-center text-xs text-gray-400">
         <div className="flex justify-center gap-4 mb-2">

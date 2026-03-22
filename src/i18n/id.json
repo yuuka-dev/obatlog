@@ -80,5 +80,10 @@
   "settings.language": "Bahasa",
   "settings.notifications": "Notifikasi",
   "settings.notifyEnable": "Aktifkan",
-  "settings.notifyDenied": "Diblokir oleh browser"
+  "settings.notifyDenied": "Diblokir oleh browser",
+  "lp.screenshots.title": "Contoh penggunaan",
+  "lp.screenshots.home": "Catat obat harian",
+  "lp.screenshots.medications": "Kelola obat & notifikasi",
+  "lp.screenshots.logs": "Lihat riwayat minum obat",
+  "auth.agreeTerms": "Dengan mendaftar, Anda menyetujui {terms} dan {privacy} kami."
 }

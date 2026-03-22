@@ -80,5 +80,10 @@
   "settings.language": "Language",
   "settings.notifications": "Notifications",
   "settings.notifyEnable": "Enable",
-  "settings.notifyDenied": "Blocked by browser"
+  "settings.notifyDenied": "Blocked by browser",
+  "lp.screenshots.title": "See it in action",
+  "lp.screenshots.home": "Record daily medication",
+  "lp.screenshots.medications": "Manage meds & notifications",
+  "lp.screenshots.logs": "View medication log",
+  "auth.agreeTerms": "By signing up, you agree to our {terms} and {privacy}."
 }

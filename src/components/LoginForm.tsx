@@ -78,6 +78,23 @@ export default function LoginForm() {
                 />
               )}
               {error && <p className="text-sm text-amber-700 bg-amber-50 rounded p-2">{error}</p>}
+              {isSignUp && !resetMode && (
+                <p className="text-xs text-gray-400 text-center">
+                  {(() => {
+                    const text = t('auth.agreeTerms' as any, lang);
+                    const parts = text.split(/\{terms\}|\{privacy\}/);
+                    return (
+                      <>
+                        {parts[0]}
+                        <a href="/terms" className="underline hover:text-gray-600">{t('terms' as any, lang)}</a>
+                        {parts[1]}
+                        <a href="/privacy" className="underline hover:text-gray-600">{t('privacy' as any, lang)}</a>
+                        {parts[2]}
+                      </>
+                    );
+                  })()}
+                </p>
+              )}
               <button
                 type="submit"
                 disabled={loading}

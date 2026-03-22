@@ -80,5 +80,10 @@
   "settings.language": "言語",
   "settings.notifications": "通知",
   "settings.notifyEnable": "許可する",
-  "settings.notifyDenied": "ブラウザで拒否されています"
+  "settings.notifyDenied": "ブラウザで拒否されています",
+  "lp.screenshots.title": "こんなふうに使えます",
+  "lp.screenshots.home": "今日の服薬を記録",
+  "lp.screenshots.medications": "薬の管理・通知設定",
+  "lp.screenshots.logs": "服薬ログを確認",
+  "auth.agreeTerms": "登録することで、{terms}と{privacy}に同意したものとみなされます。"
 }
