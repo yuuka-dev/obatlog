@@ -8,7 +8,8 @@ interface ProgressBarProps {
 }
 
 export default function ProgressBar({ current, max, unit = '' }: ProgressBarProps) {
-  const pct = Math.min(100, (current / max) * 100);
+  const safeMax = max > 0 ? max : 1;
+  const pct = Math.min(100, (current / safeMax) * 100);
   const atLimit = current >= max;
 
   return (

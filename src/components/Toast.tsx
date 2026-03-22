@@ -14,10 +14,18 @@ interface ToastProps {
 }
 
 export default function Toast({ items, onDismiss }: ToastProps) {
+  // z-[100]: TabNav/下部UI が z-50 より上に来て取り消しが押せないのを防ぐ
+  // bottom: 広告(50px)+タブ+安全余白より上に固定（md は従来どおり右下）
   return (
-    <div className="fixed bottom-32 md:bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 z-50 space-y-2">
+    <div
+      className="fixed left-4 right-4 space-y-2 z-[100] pointer-events-none
+        bottom-[calc(10rem+env(safe-area-inset-bottom,0px))]
+        md:pointer-events-auto md:bottom-4 md:left-auto md:right-4 md:w-80 md:max-w-none"
+    >
       {items.map(item => (
-        <ToastEntry key={item.id} item={item} onDismiss={() => onDismiss(item.id)} />
+        <div key={item.id} className="pointer-events-auto">
+          <ToastEntry item={item} onDismiss={() => onDismiss(item.id)} />
+        </div>
       ))}
     </div>
   );

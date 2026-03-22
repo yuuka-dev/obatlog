@@ -42,7 +42,8 @@ export default function IntakeForm() {
         // 累計を計算
         const totals: Record<string, number> = {};
         for (const intake of intakesData) {
-          totals[intake.medicationId] = intake.totalToday;
+          // 同日・同薬で複数行あるときは orderBy(takenAt asc) の最後が最新累計
+          totals[intake.medicationId] = intake.totalToday ?? 0;
         }
         setTodayTotals(totals);
       } catch {

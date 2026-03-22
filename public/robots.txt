@@ -1,0 +1,5 @@
+# 本番ドメインに合わせて Sitemap URL を書き換えてください
+User-agent: *
+Allow: /
+
+Sitemap: https://obatlog.osaka29.jp/sitemap.xml

@@ -4,7 +4,7 @@ import ja from './ja.json';
 import en from './en.json';
 import id from './id.json';
 
-type Lang = 'ja' | 'en' | 'id';
+export type Lang = 'ja' | 'en' | 'id';
 type TranslationKey = keyof typeof ja;
 
 const translations: Record<Lang, Record<string, string>> = { ja, en, id };

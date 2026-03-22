@@ -1,44 +1,41 @@
+'use client';
+
 import Link from 'next/link';
+import { t, getLang } from '@/i18n/index';
+import LangSwitcher from '@/components/LangSwitcher';
 
 export default function TermsPage() {
+  const lang = getLang();
+
+  const sections = [
+    { title: 'legal.terms.s1_title' as const, body: 'legal.terms.s1_body' as const },
+    { title: 'legal.terms.s2_title' as const, body: 'legal.terms.s2_body' as const },
+    { title: 'legal.terms.s3_title' as const, body: 'legal.terms.s3_body' as const },
+    { title: 'legal.terms.s4_title' as const, body: 'legal.terms.s4_body' as const },
+    { title: 'legal.terms.s5_title' as const, body: 'legal.terms.s5_body' as const },
+  ];
+
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="max-w-2xl mx-auto px-6 py-12">
-        <Link href="/" className="text-amber-500 hover:text-amber-600 text-sm mb-6 inline-block">← ホームに戻る</Link>
-        <h1 className="text-2xl font-bold text-gray-800 mb-8">利用規約</h1>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <Link href="/" className="text-amber-500 hover:text-amber-600 text-sm order-2 sm:order-1">
+            {t('legal.back', lang)}
+          </Link>
+          <div className="order-1 sm:order-2">
+            <p className="text-xs text-gray-400 text-center sm:text-right mb-1">{t('lp.langLabel' as any, lang)}</p>
+            <LangSwitcher current={lang} />
+          </div>
+        </div>
+        <h1 className="text-2xl font-bold text-gray-800 mb-8">{t('legal.terms.title', lang)}</h1>
         <div className="space-y-8 text-gray-700 text-sm leading-relaxed">
-          <section>
-            <h2 className="text-lg font-semibold text-gray-800 mb-2">1. サービス概要</h2>
-            <p>ObatLog（以下「本サービス」）は、個人の服薬記録を管理するためのウェブアプリケーションです。本サービスは医療機器ではなく、医療行為を提供するものではありません。</p>
-          </section>
-          <section>
-            <h2 className="text-lg font-semibold text-gray-800 mb-2">2. 免責事項</h2>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>本サービスは医療アドバイスを提供するものではありません。健康に関する判断は、必ず医師や薬剤師にご相談ください。</li>
-              <li>本サービスの利用はすべて自己責任で行ってください。</li>
-              <li>過量チェック機能はあくまで目安であり、正確性を保証するものではありません。</li>
-              <li>本サービスの利用により生じた損害について、運営者は一切の責任を負いません。</li>
-            </ul>
-          </section>
-          <section>
-            <h2 className="text-lg font-semibold text-gray-800 mb-2">3. 禁止事項</h2>
-            <p>以下の行為を禁止します。</p>
-            <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li>不正アクセスまたはサービスへの攻撃</li>
-              <li>他のユーザーのアカウントへの不正利用</li>
-              <li>サービスの運営を妨害する行為</li>
-              <li>法令に違反する行為</li>
-            </ul>
-          </section>
-          <section>
-            <h2 className="text-lg font-semibold text-gray-800 mb-2">4. サービスの変更・終了</h2>
-            <p>運営者は、事前の通知なくサービスの内容を変更、または提供を終了する場合があります。サービスの変更・終了により生じた損害について、運営者は責任を負いません。</p>
-          </section>
-          <section>
-            <h2 className="text-lg font-semibold text-gray-800 mb-2">5. 準拠法</h2>
-            <p>本規約は日本法に基づいて解釈されます。</p>
-          </section>
-          <p className="text-gray-400 text-xs pt-4 border-t border-gray-200">最終更新日: 2026年3月22日</p>
+          {sections.map((s) => (
+            <section key={s.title}>
+              <h2 className="text-lg font-semibold text-gray-800 mb-2">{t(s.title, lang)}</h2>
+              <p className="whitespace-pre-line">{t(s.body, lang)}</p>
+            </section>
+          ))}
+          <p className="text-gray-400 text-xs pt-4 border-t border-gray-200">{t('legal.terms.updated', lang)}</p>
         </div>
       </div>
     </div>

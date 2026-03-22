@@ -1,6 +1,7 @@
 // ランディングページ（未認証ユーザー向け）
 import React from 'react';
 import { t, getLang } from '../i18n/index';
+import LangSwitcher from './LangSwitcher';
 
 export default function LandingPage() {
   const lang = getLang();
@@ -9,7 +10,11 @@ export default function LandingPage() {
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
       {/* ヒーローセクション */}
       <section className="px-6 pt-16 pb-12 text-center max-w-lg mx-auto">
-        <p className="text-sm text-gray-400 mb-2">ObatLog - おくすり記録</p>
+        <div className="mb-4">
+          <p className="text-xs text-gray-400 mb-2">{t('lp.langLabel' as any, lang)}</p>
+          <LangSwitcher current={lang} />
+        </div>
+        <p className="text-sm text-gray-400 mb-2">{t('lp.brandLine' as any, lang)}</p>
         <h1 className="text-3xl font-bold text-gray-800 mb-4">
           {t('lp.hero.title' as any, lang)}
         </h1>
@@ -66,15 +71,21 @@ export default function LandingPage() {
       {/* フッター */}
       <footer className="px-6 py-8 text-center text-xs text-gray-400">
         <div className="flex justify-center gap-4 mb-2">
-          <a href="/privacy" className="hover:text-gray-600 transition">
+          <a href="/privacy/" className="hover:text-gray-600 transition">
             {t('privacy' as any, lang)}
           </a>
-          <a href="/terms" className="hover:text-gray-600 transition">
+          <a href="/terms/" className="hover:text-gray-600 transition">
             {t('terms' as any, lang)}
           </a>
         </div>
-        <p className="mb-1">運営: <a href="https://osaka29.jp" target="_blank" rel="noopener noreferrer" className="hover:text-gray-600 transition">第29大阪技術局</a></p>
-        <p className="mb-2">お問い合わせ: <a href="mailto:contract@osaka29.jp" className="hover:text-gray-600 transition">contract@osaka29.jp</a></p>
+        <p className="mb-1">
+          {t('lp.footer.operator' as any, lang)}{' '}
+          <a href="https://osaka29.jp" target="_blank" rel="noopener noreferrer" className="hover:text-gray-600 transition">第29大阪技術局</a>
+        </p>
+        <p className="mb-2">
+          {t('lp.footer.contact' as any, lang)}{' '}
+          <a href="mailto:contract@osaka29.jp" className="hover:text-gray-600 transition">contract@osaka29.jp</a>
+        </p>
         © 2026 ObatLog
       </footer>
     </div>
