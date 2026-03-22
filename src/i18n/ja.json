@@ -61,5 +61,20 @@
   "lp.hero.cta": "はじめる",
   "lp.features.record": "ワンタップで記録",
   "lp.features.check": "過量チェック",
-  "lp.features.notify": "飲み忘れ通知"
+  "lp.features.notify": "飲み忘れ通知",
+  "privacy": "プライバシーポリシー",
+  "terms": "利用規約",
+  "nav.privacy": "プライバシーポリシー",
+  "nav.terms": "利用規約",
+  "nav.settings": "設定",
+  "auth.forgotPassword": "パスワードを忘れた方",
+  "auth.resetPassword": "リセットメールを送信",
+  "auth.resetSent": "パスワードリセットメールを送信しました。メールをご確認ください。",
+  "settings.title": "設定",
+  "settings.logout": "ログアウト",
+  "settings.dangerZone": "アカウント管理",
+  "settings.deleteAccount": "アカウントを削除",
+  "settings.deleteConfirm": "本当にアカウントを削除しますか？すべてのデータが完全に削除され、元に戻せません。",
+  "settings.deleteConfirmYes": "削除する",
+  "settings.exportData": "データをエクスポート"
 }

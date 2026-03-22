@@ -6,6 +6,8 @@ import * as cors from 'cors';
 import { usersRouter } from './users';
 import { medicationsRouter } from './medications';
 import { intakesRouter } from './intakes';
+import { accountDeleteRouter } from './accountDelete';
+import { dataExportRouter } from './dataExport';
 
 admin.initializeApp();
 
@@ -31,6 +33,8 @@ app.use(cors({
 app.use(express.json({ limit: '10kb' }));
 
 app.use('/v1/users', usersRouter);
+app.use('/v1/users', accountDeleteRouter);
+app.use('/v1/users', dataExportRouter);
 app.use('/v1/medications', medicationsRouter);
 app.use('/v1/intakes', intakesRouter);
 

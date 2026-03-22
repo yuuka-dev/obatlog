@@ -61,5 +61,20 @@
   "lp.hero.cta": "Mulai",
   "lp.features.record": "Catat sekali tap",
   "lp.features.check": "Cek overdosis",
-  "lp.features.notify": "Pengingat minum obat"
+  "lp.features.notify": "Pengingat minum obat",
+  "privacy": "Kebijakan Privasi",
+  "terms": "Ketentuan Layanan",
+  "nav.privacy": "Kebijakan Privasi",
+  "nav.terms": "Ketentuan Layanan",
+  "nav.settings": "Pengaturan",
+  "auth.forgotPassword": "Lupa kata sandi?",
+  "auth.resetPassword": "Kirim email reset",
+  "auth.resetSent": "Email reset kata sandi telah dikirim. Silakan periksa kotak masuk Anda.",
+  "settings.title": "Pengaturan",
+  "settings.logout": "Keluar",
+  "settings.dangerZone": "Akun",
+  "settings.deleteAccount": "Hapus akun",
+  "settings.deleteConfirm": "Apakah Anda yakin ingin menghapus akun? Semua data akan dihapus secara permanen dan tidak dapat dipulihkan.",
+  "settings.deleteConfirmYes": "Hapus",
+  "settings.exportData": "Ekspor data"
 }

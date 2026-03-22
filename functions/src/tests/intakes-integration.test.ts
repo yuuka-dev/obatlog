@@ -1,4 +1,5 @@
 // intakes ハンドラーのバリデーション・レスポンステスト
+export {};
 jest.mock('firebase-admin', () => {
   const mockDoc = {
     exists: true,
