@@ -69,6 +69,7 @@ ObatLog は、個人向けの「シンプルな服薬記録アプリ」。
 | **API** | Firebase Functions v2 (Express) | REST API (asia-northeast1) |
 | **通知** | FCM (Firebase Cloud Messaging) | Web Push通知 |
 | **ホスティング** | Firebase Hosting | 静的エクスポート + リライト |
+| **広告（Web）** | Google AdSense | バナー広告 |
 | **決済（Web）** | Stripe | 広告除去の買い切り課金 |
 | **言語** | TypeScript | フロント・バックエンド共通 |
 
@@ -77,10 +78,34 @@ ObatLog は、個人向けの「シンプルな服薬記録アプリ」。
 |---------|------|------|
 | **アプリ化** | Capacitor | Next.js をそのままAndroidアプリ化 |
 | **ウィジェット** | Kotlin（ネイティブ） | ホーム画面ウィジェット |
+| **通知** | FCM + Android ネイティブ通知 | Capacitor Push Notifications プラグイン + Kotlin カスタマイズ |
+| **広告** | Google AdMob | バナー広告（アプリ内） |
 | **決済** | Google Play Billing | 広告除去の買い切り課金 |
+
+### Android版の通知設計
+- Web版の Web Push（ブラウザ依存・不安定）から **Android ネイティブ通知に切り替え**
+- FCM 受信は `@capacitor/push-notifications` プラグインで対応
+- 通知チャンネル設定、リマインド再送等は Kotlin で実装
+- **アプリを閉じていても通知が届く**（OS レベルで動作）
+
+### Android版の Kotlin 実装範囲
+| 機能 | 内容 |
+|------|------|
+| ホーム画面ウィジェット | 今日の服薬状況を表示 |
+| 通知カスタマイズ | 通知チャンネル、サウンド、バイブ、リマインド再送 |
+
+### 広告プラットフォームの使い分け
+| プラットフォーム | 広告 | 理由 |
+|-----------------|------|------|
+| **Web版** | Google AdSense | Web サイト向け広告 |
+| **Android版** | Google AdMob | アプリ向け広告。ネイティブ統合が良い |
+
+※ AdSense と AdMob は同じ Google アカウントで管理可能
 
 ### iOS版（将来・Mac入手後）
 - Capacitor + Swift（ウィジェット）
+- 通知: FCM + iOS ネイティブ通知
+- 広告: AdMob（iOS版）
 
 ---
 

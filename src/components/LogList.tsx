@@ -1,9 +1,16 @@
 // 服薬ログ一覧（dateKey でグループ化、OD記録区別表示）
 import { useState, useEffect } from 'react';
 import { listRecentIntakes, type Intake } from '../api/intakes';
+import { formatTakenAtTime } from '../lib/intakeTime';
 import { t, getLang } from '../i18n/index';
 import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+
+const timeLocale: Record<ReturnType<typeof getLang>, string> = {
+  ja: 'ja-JP',
+  en: 'en-US',
+  id: 'id-ID',
+};
 
 export default function LogList() {
   const lang = getLang();
@@ -80,7 +87,7 @@ export default function LogList() {
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   <span className="text-xs text-gray-400">
-                    {new Date((intake.takenAt._seconds ?? intake.takenAt.seconds ?? 0) * 1000).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' })}
+                    {formatTakenAtTime(intake.takenAt, { locale: timeLocale[lang], timeZone: 'Asia/Tokyo' })}
                   </span>
                   {intake.isOverdose && <span className="text-amber-400 text-sm">💊</span>}
                 </div>

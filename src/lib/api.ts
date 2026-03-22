@@ -3,7 +3,9 @@
 // - エラーレスポンスを統一的に変換
 import { auth } from './firebase';
 
-const BASE_URL = process.env.NEXT_PUBLIC_FUNCTIONS_BASE_URL;
+// Next.js クライアントでは NEXT_PUBLIC_* のみ埋め込まれる。.env.example との齟齬で undefined になりがち。
+const BASE_URL =
+  process.env.NEXT_PUBLIC_FUNCTIONS_BASE_URL?.replace(/\/$/, '') ?? '';
 
 export class ApiError extends Error {
   constructor(public status: number, public code: string, message: string) {
@@ -21,6 +23,13 @@ export async function apiFetch<T>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> {
+  if (!BASE_URL) {
+    throw new ApiError(
+      500,
+      'CONFIG',
+      'Functions base URL is not set (NEXT_PUBLIC_FUNCTIONS_BASE_URL).'
+    );
+  }
   const token = await getToken();
   const res = await fetch(`${BASE_URL}${path}`, {
     ...options,
