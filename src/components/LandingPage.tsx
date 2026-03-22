@@ -9,6 +9,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
       {/* ヒーローセクション */}
       <section className="px-6 pt-16 pb-12 text-center max-w-lg mx-auto">
+        <p className="text-sm text-gray-400 mb-2">ObatLog - おくすり記録</p>
         <h1 className="text-3xl font-bold text-gray-800 mb-4">
           {t('lp.hero.title' as any, lang)}
         </h1>
@@ -72,6 +73,8 @@ export default function LandingPage() {
             {t('terms' as any, lang)}
           </a>
         </div>
+        <p className="mb-1">運営: <a href="https://osaka29.jp" target="_blank" rel="noopener noreferrer" className="hover:text-gray-600 transition">第29大阪技術局</a></p>
+        <p className="mb-2">お問い合わせ: <a href="mailto:contract@osaka29.jp" className="hover:text-gray-600 transition">contract@osaka29.jp</a></p>
         © 2026 ObatLog
       </footer>
     </div>

@@ -41,7 +41,8 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-lg font-semibold text-gray-800 mb-2">6. お問い合わせ</h2>
             <p>プライバシーに関するお問い合わせは、以下までご連絡ください。</p>
-            <p className="mt-2 text-gray-500">メール: <span className="select-all">contact@example.com</span></p>
+            <p className="mt-2 text-gray-500">運営: 第29大阪技術局（<a href="https://osaka29.jp" target="_blank" rel="noopener noreferrer" className="text-amber-500 hover:underline">osaka29.jp</a>）</p>
+            <p className="text-gray-500">メール: <a href="mailto:contract@osaka29.jp" className="text-amber-500 hover:underline select-all">contract@osaka29.jp</a></p>
           </section>
           <p className="text-gray-400 text-xs pt-4 border-t border-gray-200">最終更新日: 2026年3月22日</p>
         </div>
