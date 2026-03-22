@@ -15,6 +15,8 @@ const app = express();
 
 // CORS設定: 本番 + 開発環境を許可
 const allowedOrigins = [
+  'https://obatlog.web.app',
+  'https://obatlog.firebaseapp.com',
   'https://obatlog.osaka29.jp',
   'http://localhost:4321',
   'http://localhost:5000',

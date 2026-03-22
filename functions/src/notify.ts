@@ -5,11 +5,14 @@ import * as admin from 'firebase-admin';
 const db = () => admin.firestore();
 
 export const sendMedicationReminders = onSchedule(
-  { schedule: '0 * * * *', timeZone: 'Asia/Tokyo', region: 'asia-northeast1' },
+  { schedule: '*/5 * * * *', timeZone: 'Asia/Tokyo', region: 'asia-northeast1' },
   async () => {
     const now = new Date();
-    const currentHour = now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo', hour: '2-digit', hour12: false });
-    const timeSlot = `${currentHour.padStart(2, '0')}:00`;
+    const hours = now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo', hour: '2-digit', hour12: false });
+    const minutes = now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo', minute: '2-digit' });
+    // 5分刻みスロット（00, 05, 10, ...）
+    const roundedMin = Math.floor(parseInt(minutes) / 5) * 5;
+    const timeSlot = `${hours.padStart(2, '0')}:${String(roundedMin).padStart(2, '0')}`;
     const dateKey = now.toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
 
     // 通知対象の薬を取得

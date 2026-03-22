@@ -11,7 +11,7 @@ interface MedSummary {
 }
 
 interface SideNavProps {
-  active: 'home' | 'medications' | 'logs';
+  active: 'home' | 'medications' | 'logs' | 'settings';
   medSummaries: MedSummary[];
 }
 
@@ -19,6 +19,7 @@ const navItems = [
   { key: 'home' as const, href: '/', icon: '🏠', labelKey: 'nav.home' },
   { key: 'medications' as const, href: '/medications', icon: '💊', labelKey: 'nav.medications' },
   { key: 'logs' as const, href: '/logs', icon: '📋', labelKey: 'nav.logs' },
+  { key: 'settings' as const, href: '/settings', icon: '⚙️', labelKey: 'nav.settings' },
 ];
 
 export default function SideNav({ active, medSummaries }: SideNavProps) {

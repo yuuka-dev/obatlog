@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { listMedications, type Medication } from '../api/medications';
 import { listIntakesByDate, createIntake, cancelIntake, type Intake } from '../api/intakes';
-import { t, getLang, setLang } from '../i18n/index';
+import { t, getLang } from '../i18n/index';
 import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import Stepper from './Stepper';
@@ -16,7 +16,7 @@ function getTodayKey(): string {
 }
 
 export default function IntakeForm() {
-  const [lang, setLangState] = useState<'ja' | 'en' | 'id'>(getLang());
+  const lang = getLang();
   const [meds, setMeds] = useState<Medication[]>([]);
   const [todayIntakes, setTodayIntakes] = useState<Intake[]>([]);
   const [units, setUnits] = useState<Record<string, number>>({});
@@ -28,11 +28,6 @@ export default function IntakeForm() {
   const [submitting, setSubmitting] = useState<Record<string, boolean>>({});
   const [toasts, setToasts] = useState<ToastItem[]>([]);
   const [showOdForm, setShowOdForm] = useState(false);
-
-  function handleLangChange(newLang: 'ja' | 'en' | 'id') {
-    setLang(newLang);
-    setLangState(newLang);
-  }
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -125,19 +120,8 @@ export default function IntakeForm() {
 
   return (
     <div className="space-y-3">
-      {/* ヘッダー: タイトル + 言語切替 */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold text-gray-800">{t('home.title', lang)}</h1>
-        <div className="flex gap-1">
-          {(['ja', 'en', 'id'] as const).map(l => (
-            <button key={l} onClick={() => handleLangChange(l)}
-              className={`text-xs px-3 py-2 rounded-lg transition
-                ${lang === l ? 'bg-amber-400 text-white' : 'text-gray-400 hover:text-gray-600'}`}>
-              {l}
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* ヘッダー */}
+      <h1 className="text-xl font-bold text-gray-800">{t('home.title', lang)}</h1>
       <p className="text-sm text-gray-400">{getTodayKey()}</p>
 
       {/* データ取得エラー */}

@@ -76,5 +76,9 @@
   "settings.deleteAccount": "アカウントを削除",
   "settings.deleteConfirm": "本当にアカウントを削除しますか？すべてのデータが完全に削除され、元に戻せません。",
   "settings.deleteConfirmYes": "削除する",
-  "settings.exportData": "データをエクスポート"
+  "settings.exportData": "データをエクスポート",
+  "settings.language": "言語",
+  "settings.notifications": "通知",
+  "settings.notifyEnable": "許可する",
+  "settings.notifyDenied": "ブラウザで拒否されています"
 }

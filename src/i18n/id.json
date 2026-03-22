@@ -76,5 +76,9 @@
   "settings.deleteAccount": "Hapus akun",
   "settings.deleteConfirm": "Apakah Anda yakin ingin menghapus akun? Semua data akan dihapus secara permanen dan tidak dapat dipulihkan.",
   "settings.deleteConfirmYes": "Hapus",
-  "settings.exportData": "Ekspor data"
+  "settings.exportData": "Ekspor data",
+  "settings.language": "Bahasa",
+  "settings.notifications": "Notifikasi",
+  "settings.notifyEnable": "Aktifkan",
+  "settings.notifyDenied": "Diblokir oleh browser"
 }
