@@ -82,9 +82,9 @@ medicationsRouter.put('/:id', verifyToken, async (req, res) => {
       firestoreUpdates.notifyEnabled = notifyEnabled;
     }
     if (Array.isArray(notifyAt)) {
-      const timeRegex = /^([01]\d|2[0-3]):00$/;
+      const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
       if (notifyAt.length > 5 || notifyAt.some((t: string) => !timeRegex.test(t))) {
-        return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'notifyAt invalid. Use HH:00 format, max 5.' } });
+        return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'notifyAt invalid. Use HH:MM format, max 5.' } });
       }
       firestoreUpdates.notifyAt = notifyAt;
     }
