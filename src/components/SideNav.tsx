@@ -1,6 +1,7 @@
 // PC用サイドナビゲーション + 今日のサマリー
 import React from 'react';
 import ProgressBar from './ProgressBar';
+import AdBanner from './AdBanner';
 import { t, getLang } from '../i18n/index';
 
 interface MedSummary {
@@ -13,6 +14,7 @@ interface MedSummary {
 interface SideNavProps {
   active: 'home' | 'medications' | 'logs' | 'settings';
   medSummaries: MedSummary[];
+  adFree?: boolean;
 }
 
 const navItems = [
@@ -22,7 +24,7 @@ const navItems = [
   { key: 'settings' as const, href: '/settings', icon: '⚙️', labelKey: 'nav.settings' },
 ];
 
-export default function SideNav({ active, medSummaries }: SideNavProps) {
+export default function SideNav({ active, medSummaries, adFree }: SideNavProps) {
   const lang = getLang();
   return (
     <aside className="hidden md:flex flex-col w-56 h-screen fixed left-0 top-0 bg-white border-r border-gray-100 p-4">
@@ -48,6 +50,11 @@ export default function SideNav({ active, medSummaries }: SideNavProps) {
               </div>
             ))}
           </div>
+        </div>
+      )}
+      {!adFree && (
+        <div className="mt-4">
+          <AdBanner />
         </div>
       )}
     </aside>

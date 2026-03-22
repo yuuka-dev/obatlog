@@ -3,9 +3,10 @@ import { t, getLang } from '../i18n/index';
 
 interface Props {
   active: 'home' | 'medications' | 'logs' | 'settings';
+  adVisible?: boolean;
 }
 
-export default function TabNav({ active }: Props) {
+export default function TabNav({ active, adVisible }: Props) {
   const lang = getLang();
   const tabs = [
     { key: 'home' as const, href: '/', label: t('nav.home', lang), icon: '🏠' },
@@ -15,7 +16,7 @@ export default function TabNav({ active }: Props) {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex">
+    <nav className={`fixed ${adVisible ? 'bottom-[50px]' : 'bottom-0'} left-0 right-0 bg-white border-t border-gray-200 flex`} style={{ zIndex: 50 }}>
       {tabs.map(tab => (
         <a
           key={tab.key}
