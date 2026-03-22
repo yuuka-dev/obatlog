@@ -19,6 +19,7 @@ async function ensureUserDoc(uid: string, email: string): Promise<void> {
       language: 'ja',
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       notificationToken: null,
+      adFree: false,
     });
   }
 }

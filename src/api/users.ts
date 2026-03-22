@@ -5,6 +5,8 @@ export interface UserProfile {
   id: string;
   email: string;
   language: 'ja' | 'en' | 'id';
+  notificationToken?: string;
+  adFree: boolean;
 }
 
 export const getMe = () => apiFetch<UserProfile>('/v1/users/me');
