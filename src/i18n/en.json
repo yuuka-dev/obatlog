@@ -76,5 +76,9 @@
   "settings.deleteAccount": "Delete account",
   "settings.deleteConfirm": "Are you sure you want to delete your account? All data will be permanently deleted and cannot be recovered.",
   "settings.deleteConfirmYes": "Delete",
-  "settings.exportData": "Export data"
+  "settings.exportData": "Export data",
+  "settings.language": "Language",
+  "settings.notifications": "Notifications",
+  "settings.notifyEnable": "Enable",
+  "settings.notifyDenied": "Blocked by browser"
 }

@@ -4,3 +4,9 @@
 *-firebase-adminsdk-*.json
 .env
 .env.local
+node_modules/
+dist/
+.astro/
+.firebase/
+functions/node_modules/
+functions/lib/

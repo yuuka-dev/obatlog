@@ -2,7 +2,7 @@
 import { t, getLang } from '../i18n/index';
 
 interface Props {
-  active: 'home' | 'medications' | 'logs';
+  active: 'home' | 'medications' | 'logs' | 'settings';
 }
 
 export default function TabNav({ active }: Props) {
@@ -11,6 +11,7 @@ export default function TabNav({ active }: Props) {
     { key: 'home' as const, href: '/', label: t('nav.home', lang), icon: '🏠' },
     { key: 'medications' as const, href: '/medications', label: t('nav.medications', lang), icon: '💊' },
     { key: 'logs' as const, href: '/logs', label: t('nav.logs', lang), icon: '📋' },
+    { key: 'settings' as const, href: '/settings', label: t('nav.settings' as any, lang), icon: '⚙️' },
   ];
 
   return (

@@ -8,7 +8,7 @@ import { listMedications } from '../api/medications';
 import { listIntakesByDate } from '../api/intakes';
 
 interface AppLayoutProps {
-  active: 'home' | 'medications' | 'logs';
+  active: 'home' | 'medications' | 'logs' | 'settings';
   children: ReactNode;
 }
 

@@ -38,14 +38,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA（下部） */}
-      <section className="px-6 py-12 text-center">
-        <a href="/login"
-          className="inline-block bg-amber-400 hover:bg-amber-500 text-white px-8 py-3 rounded-xl text-lg font-medium shadow-lg shadow-amber-200 transition">
-          {t('lp.hero.cta' as any, lang)}
-        </a>
-      </section>
-
       {/* フッター */}
       <footer className="px-6 py-8 text-center text-xs text-gray-400">
         <div className="flex justify-center gap-4 mb-2">
