@@ -1,0 +1,48 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # フロントエンドビルド
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          PUBLIC_FIREBASE_API_KEY: ${{ secrets.PUBLIC_FIREBASE_API_KEY }}
+          PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.PUBLIC_FIREBASE_AUTH_DOMAIN }}
+          PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.PUBLIC_FIREBASE_PROJECT_ID }}
+          PUBLIC_FIREBASE_APP_ID: ${{ secrets.PUBLIC_FIREBASE_APP_ID }}
+          PUBLIC_FUNCTIONS_BASE_URL: ${{ secrets.PUBLIC_FUNCTIONS_BASE_URL }}
+
+      # Functions ビルド
+      - run: npm ci
+        working-directory: functions
+      - run: npm run build
+        working-directory: functions
+
+      # Firebase デプロイ（Hosting + Functions + Firestore Rules）
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        id: hosting
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: obatlog
+
+      - name: Deploy Functions & Firestore Rules
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions,firestore:rules
+        env:
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          PROJECT_ID: obatlog

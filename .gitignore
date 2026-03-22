@@ -1,2 +1,6 @@
 .superpowers/
 .worktrees/
+*.json.bak
+*-firebase-adminsdk-*.json
+.env
+.env.local
