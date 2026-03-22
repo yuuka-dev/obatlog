@@ -36,6 +36,28 @@
    - ClaudeCode は仕様外機能を勝手に追加してはならない
    - “多人数管理、企業連携、医療級” など別方向へ行かない
 
+7. **コミット時の末尾に追記禁止**
+   - Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com> を追記してはならない
+
+---
+
+## Agent Teams 構成
+- Team Lead：司令塔
+- Med-API Engineer：API/モデル
+- Med-UI Engineer：UI/フォーム/表示
+- Med-Test Engineer：品質管理
+
+## チームルール
+- 同一ファイルの同時編集は禁止
+- タスクは小さく分割（Pro制限対策）
+- ファイル全書き換え禁止、差分のみ
+- 1タスク 20〜40行以内
+
+## 完了基準（Done）
+- API：登録、一覧、更新、在庫減算
+- UI：登録フォーム、一覧、チェック機能
+- Test：最小ユニット＋LintフックOK
+
 ---
 
 ## 🎯 PURPOSE（要求定義）

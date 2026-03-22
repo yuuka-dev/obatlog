@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(npm list:*)",
+      "Bash(node -e \"require\\(''fs''\\).readFileSync\\(''./firebase.json'', ''utf8''\\)\")",
+      "Bash(node -e \"require\\(''fs''\\).readFileSync\\(''./.firebaserc'', ''utf8''\\)\")",
+      "Bash(node -e \"const cfg = JSON.parse\\(require\\(''fs''\\).readFileSync\\(''./firebase.json''\\)\\); console.log\\(''Rewrites rule:''\\); console.log\\(JSON.stringify\\(cfg.hosting.rewrites, null, 2\\)\\);\")",
+      "Bash(cd:*)",
+      "Bash(npm init:*)",
+      "Bash(npm test:*)",
+      "Bash(npx tsc:*)",
+      "Bash(find C:/Dev/repo/obatlog/.worktrees/feature-mvp/src -type f -name *.ts -o -name *.tsx -o -name *.astro -o -name *.json)",
+      "Bash(find C:/Dev/repo/obatlog/.worktrees/feature-mvp/functions/src -type f -name *.ts)",
+      "Bash(npx firebase:*)",
+      "Bash(rm -rf dist)",
+      "Bash(npx astro:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
