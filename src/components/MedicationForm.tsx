@@ -78,7 +78,11 @@ export default function MedicationForm({ medication, onSuccess, onCancel }: Prop
                 newAt[i] = e.target.value;
                 setNotifyAt(newAt);
               }} className="border rounded-lg px-3 py-2 text-sm">
-                {Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, '0')}:00`).map(opt => (
+                {Array.from({ length: 24 * 12 }, (_, i) => {
+                  const h = Math.floor(i / 12);
+                  const m = (i % 12) * 5;
+                  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+                }).map(opt => (
                   <option key={opt} value={opt}>{opt}</option>
                 ))}
               </select>
