@@ -20,6 +20,7 @@ async function ensureUserDoc(uid: string, email: string): Promise<void> {
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       notificationToken: null,
       adFree: false,
+      notifyMethod: 'push',
     });
   }
 }
@@ -40,7 +41,7 @@ usersRouter.get('/me', verifyToken, async (req, res) => {
 // PUT /v1/users/me — language / notificationToken 更新
 usersRouter.put('/me', verifyToken, async (req, res) => {
   const { uid, email } = req as AuthenticatedRequest;
-  const { language, notificationToken } = req.body;
+  const { language, notificationToken, notifyMethod } = req.body;
   const updates: Record<string, unknown> = {};
 
   if (language !== undefined) {
@@ -51,6 +52,12 @@ usersRouter.put('/me', verifyToken, async (req, res) => {
   }
   if (typeof notificationToken === 'string') {
     updates.notificationToken = notificationToken;
+  }
+  if (notifyMethod !== undefined) {
+    if (!['push', 'email'].includes(notifyMethod)) {
+      return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'notifyMethod must be push or email.' } });
+    }
+    updates.notifyMethod = notifyMethod;
   }
   if (Object.keys(updates).length === 0) {
     return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'No valid fields.' } });
