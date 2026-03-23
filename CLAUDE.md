@@ -64,10 +64,10 @@ ObatLog は、個人向けの「シンプルな服薬記録アプリ」。
 | **フレームワーク** | Next.js (App Router) | SSG/静的エクスポート |
 | **UI** | React + Tailwind CSS | コンポーネント + スタイリング |
 | **PWA** | Serwist (@serwist/next) | Service Worker、オフラインキャッシュ |
-| **認証** | Firebase Auth | メール/パスワード認証 |
+| **認証** | Firebase Auth | メール/パスワード、Google ログイン、LINE ログイン（LIFF） |
 | **DB** | Firestore | NoSQL、ドキュメントベース |
 | **API** | Firebase Functions v2 (Express) | REST API (asia-northeast1) |
-| **通知** | FCM (Firebase Cloud Messaging) | Web Push通知 |
+| **通知** | FCM + Microsoft Graph API | Web Push / メール通知（M365経由） |
 | **ホスティング** | Firebase Hosting | 静的エクスポート + リライト |
 | **広告（Web）** | Google AdSense | バナー広告 |
 | **決済（Web）** | Stripe | 広告除去の買い切り課金 |
@@ -107,6 +107,36 @@ ObatLog は、個人向けの「シンプルな服薬記録アプリ」。
 - 通知: FCM + iOS ネイティブ通知
 - 広告: AdMob（iOS版）
 
+### Web版の認証設計
+| 認証方法 | 優先度 | 実装方法 |
+|---------|--------|---------|
+| **メール/パスワード** | 実装済み | Firebase Auth 標準 |
+| **Google ログイン** | 高 | Firebase Auth の Google プロバイダ |
+| **LINE ログイン（LIFF）** | 中 | LINE Login → Firebase カスタムトークン認証 |
+| Apple ログイン | 低（iOS版公開時） | Firebase Auth の Apple プロバイダ |
+
+- 既存のメール/パスワードユーザーとソーシャルログインのアカウントリンクを考慮する
+- Google ログインは Firebase Auth で最も実装コストが低い
+
+### Web版の通知設計（マルチチャネル）
+| チャンネル | 実装方法 | 到達率 |
+|-----------|---------|--------|
+| **Web Push** | FCM（実装済み・不安定） | ブラウザ依存 |
+| **メール** | Microsoft Graph API → M365 メールボックスから送信 | ほぼ100% |
+| **LINE** | LINE Messaging API（LIFF 連携後） | 高い |
+
+#### メール通知の実装
+- **送信方法**: Firebase Functions → Microsoft Graph API → M365
+- **認証**: Azure AD（Entra ID）アプリ登録 + Mail.Send 権限（アプリケーション権限）
+- **送信元**: noreply@obatlog.osaka29.jp（M365 独自ドメイン）
+- **SPF/DKIM/DMARC**: M365 側で設定済みのものを活用
+
+#### 通知設定UI
+- ユーザーが通知方法を選択できる設定画面を提供
+- 選択肢: Web Push / メール（将来的に LINE も追加）
+- users コレクションに `notifyMethod: 'push' | 'email' | 'line'` を追加
+- 複数チャンネルの同時有効化も可能にする（`notifyMethods: string[]`）
+
 ---
 
 ## 📦 機能範囲
@@ -129,12 +159,15 @@ ObatLog は、個人向けの「シンプルな服薬記録アプリ」。
 
 ### 🔜 次に実装（優先順）
 1. 服薬時刻の表示（ログに takenAt を表示）
-2. ダークモード
-3. 通知メッセージの多言語化
-4. 服薬カレンダー表示
-5. 広告表示
-6. Stripe 決済（広告除去 500円買い切り）
-7. メール通知（
+2. Google ログイン追加（Firebase Auth）
+3. メール通知（Microsoft Graph API / M365 経由）
+4. 通知設定UI（通知方法の選択: Web Push / メール）
+5. ダークモード
+6. 通知メッセージの多言語化
+7. 服薬カレンダー表示
+8. 広告表示
+9. Stripe 決済（広告除去 500円買い切り）
+10. LINE ログイン + LINE 通知（LIFF）
 
 ### 📱 Android対応時
 - Capacitor でアプリ化

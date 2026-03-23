@@ -16,9 +16,18 @@ export function t(key: TranslationKey, lang: Lang = 'ja'): string {
 // localStorageから言語設定を取得（クライアントサイドのみ）
 export function getLang(): Lang {
   if (typeof window === 'undefined') return 'ja';
-  return (localStorage.getItem('lang') as Lang) ?? 'ja';
+  try {
+    return (localStorage.getItem('lang') as Lang) ?? 'ja';
+  } catch {
+    // 端末/ブラウザ設定で localStorage がブロックされてる場合がある
+    return 'ja';
+  }
 }
 
 export function setLang(lang: Lang): void {
-  localStorage.setItem('lang', lang);
+  try {
+    localStorage.setItem('lang', lang);
+  } catch {
+    // ignore
+  }
 }
