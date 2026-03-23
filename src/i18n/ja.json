@@ -125,5 +125,9 @@
   "seo.defaultTitle": "ObatLog — 服薬記録・過量チェック",
   "seo.defaultDescription": "毎日の服薬を記録し、過量を防ぐシンプルなウェブアプリ。",
   "seo.termsTitle": "利用規約 | ObatLog",
-  "seo.privacyTitle": "プライバシーポリシー | ObatLog"
+  "seo.privacyTitle": "プライバシーポリシー | ObatLog",
+  "auth.or": "または",
+  "auth.googleSignIn": "Google でログイン",
+  "auth.googlePopupBlocked": "ポップアップがブロックされました。ブラウザの設定を確認してください。",
+  "auth.googleAccountExists": "このメールアドレスは既にパスワードで登録されています。パスワードでログインしてください。"
 }

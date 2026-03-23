@@ -125,5 +125,9 @@
   "seo.defaultTitle": "ObatLog — catatan minum obat & cek overdosis",
   "seo.defaultDescription": "Aplikasi web sederhana untuk mencatat obat harian dan membantu cegah overdosis.",
   "seo.termsTitle": "Ketentuan Layanan | ObatLog",
-  "seo.privacyTitle": "Kebijakan Privasi | ObatLog"
+  "seo.privacyTitle": "Kebijakan Privasi | ObatLog",
+  "auth.or": "atau",
+  "auth.googleSignIn": "Masuk dengan Google",
+  "auth.googlePopupBlocked": "Popup diblokir. Periksa pengaturan browser Anda.",
+  "auth.googleAccountExists": "Email ini sudah terdaftar dengan kata sandi. Silakan masuk dengan kata sandi."
 }

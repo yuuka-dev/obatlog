@@ -125,5 +125,9 @@
   "seo.defaultTitle": "ObatLog — medication log & overdose check",
   "seo.defaultDescription": "A simple web app to log daily medication and help prevent overdose.",
   "seo.termsTitle": "Terms of Service | ObatLog",
-  "seo.privacyTitle": "Privacy Policy | ObatLog"
+  "seo.privacyTitle": "Privacy Policy | ObatLog",
+  "auth.or": "or",
+  "auth.googleSignIn": "Sign in with Google",
+  "auth.googlePopupBlocked": "Popup was blocked. Please check your browser settings.",
+  "auth.googleAccountExists": "This email is already registered with a password. Please sign in with your password."
 }
