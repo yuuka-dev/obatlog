@@ -12,6 +12,7 @@ export default function SettingsPage() {
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState('');
   const [notifyStatus, setNotifyStatus] = useState<'default' | 'granted' | 'denied'>('default');
+  const [notifyError, setNotifyError] = useState('');
   const [notifyLoading, setNotifyLoading] = useState(false);
 
   useEffect(() => {
@@ -29,11 +30,18 @@ export default function SettingsPage() {
 
   // 通知許可
   async function handleEnableNotifications() {
+    setNotifyError('');
     setNotifyLoading(true);
     try {
       await requestNotificationPermission();
       setNotifyStatus('granted');
-    } catch {
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : '';
+      if (msg === 'no-vapid') setNotifyError(t('settings.notifyError.noVapid' as any, lang));
+      else if (msg === 'already-denied') setNotifyError(t('settings.notifyError.alreadyDenied' as any, lang));
+      else if (msg === 'insecure-context') setNotifyError(t('settings.notifyError.insecureContext' as any, lang));
+      else if (msg === 'denied') setNotifyError(t('settings.notifyError.denied' as any, lang));
+      else setNotifyError(t('settings.notifyError.default' as any, lang));
       setNotifyStatus('denied');
     } finally {
       setNotifyLoading(false);
@@ -111,6 +119,11 @@ export default function SettingsPage() {
             </button>
           )}
         </div>
+        {notifyError && (
+          <p className="mt-2 text-xs text-amber-700 bg-amber-50 rounded p-2">
+            {notifyError}
+          </p>
+        )}
       </section>
 
       {/* データエクスポート */}
