@@ -5,6 +5,8 @@ import {
   signOut as firebaseSignOut,
   sendPasswordResetEmail,
   onAuthStateChanged,
+  signInWithPopup,
+  GoogleAuthProvider,
   type User,
 } from 'firebase/auth';
 import { auth } from './firebase';
@@ -35,4 +37,10 @@ export function getCurrentUser(): Promise<User | null> {
       resolve(user);
     });
   });
+}
+
+export async function signInWithGoogle(): Promise<User> {
+  const provider = new GoogleAuthProvider();
+  const result = await signInWithPopup(auth, provider);
+  return result.user;
 }
