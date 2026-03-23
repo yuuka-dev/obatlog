@@ -129,5 +129,9 @@
   "auth.or": "atau",
   "auth.googleSignIn": "Masuk dengan Google",
   "auth.googlePopupBlocked": "Popup diblokir. Periksa pengaturan browser Anda.",
-  "auth.googleAccountExists": "Email ini sudah terdaftar dengan kata sandi. Silakan masuk dengan kata sandi."
+  "auth.googleAccountExists": "Email ini sudah terdaftar dengan kata sandi. Silakan masuk dengan kata sandi.",
+  "settings.notifyMethod": "Metode notifikasi",
+  "settings.notifyMethodPush": "Notifikasi push",
+  "settings.notifyMethodEmail": "Email",
+  "settings.notifyEmailTo": "Dikirim ke {email}"
 }

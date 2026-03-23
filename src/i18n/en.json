@@ -129,5 +129,9 @@
   "auth.or": "or",
   "auth.googleSignIn": "Sign in with Google",
   "auth.googlePopupBlocked": "Popup was blocked. Please check your browser settings.",
-  "auth.googleAccountExists": "This email is already registered with a password. Please sign in with your password."
+  "auth.googleAccountExists": "This email is already registered with a password. Please sign in with your password.",
+  "settings.notifyMethod": "Notification method",
+  "settings.notifyMethodPush": "Push notification",
+  "settings.notifyMethodEmail": "Email",
+  "settings.notifyEmailTo": "Sends to {email}"
 }

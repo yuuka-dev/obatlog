@@ -129,5 +129,9 @@
   "auth.or": "または",
   "auth.googleSignIn": "Google でログイン",
   "auth.googlePopupBlocked": "ポップアップがブロックされました。ブラウザの設定を確認してください。",
-  "auth.googleAccountExists": "このメールアドレスは既にパスワードで登録されています。パスワードでログインしてください。"
+  "auth.googleAccountExists": "このメールアドレスは既にパスワードで登録されています。パスワードでログインしてください。",
+  "settings.notifyMethod": "通知方法",
+  "settings.notifyMethodPush": "プッシュ通知",
+  "settings.notifyMethodEmail": "メール",
+  "settings.notifyEmailTo": "{email} に送信します"
 }
