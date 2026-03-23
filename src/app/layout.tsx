@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import { getSiteUrl } from '@/lib/site';
+import ServiceWorkerUpdateWatcher from '@/components/ServiceWorkerUpdateWatcher';
 
 const site = getSiteUrl();
 
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             strategy="afterInteractive"
           />
         )}
+        <ServiceWorkerUpdateWatcher />
         {children}
       </body>
     </html>
