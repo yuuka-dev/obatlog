@@ -1,7 +1,9 @@
-// FCM通知: 毎時実行し、該当時刻の薬リマインダーを送信
+// FCM / メール通知: 毎時実行し、該当時刻の薬リマインダーを送信
 import { onSchedule } from 'firebase-functions/v2/scheduler';
 import * as admin from 'firebase-admin';
 import { getTokyoReminderSlot } from './reminderSlot';
+import { sendEmail } from './mailSender';
+import { buildReminderHtml } from './mailTemplate';
 
 const db = () => admin.firestore();
 
@@ -32,49 +34,76 @@ export const sendMedicationReminders = onSchedule(
     // 各ユーザーに通知送信
     let totalSent = 0;
     for (const [userId, meds] of userMeds) {
-      const userSnap = await db().collection('users').doc(userId).get();
-      const token = userSnap.data()?.notificationToken;
-      if (!token) {
-        console.info('[sendMedicationReminders] skip (no token)', { userId, timeSlot, medsCount: meds.length });
-        continue;
-      }
+      try {
+        const userSnap = await db().collection('users').doc(userId).get();
+        const userData = userSnap.data();
+        // notifyMethod 未設定は 'push' として扱う（既存ユーザー後方互換）
+        const notifyMethod: string = userData?.notifyMethod ?? 'push';
 
-      let userSent = 0;
-      let userSkippedLimit = 0;
-      let userSendErrors = 0;
-
-      for (const med of meds) {
-        // dailyCounts で上限チェック
-        const counterRef = db().collection('dailyCounts').doc(`${userId}_${med.medicationId}_${dateKey}`);
-        const counterSnap = await counterRef.get();
-        const currentTotal = counterSnap.exists ? (counterSnap.data()?.total ?? 0) : 0;
-        if (currentTotal >= med.limitPerDay) {
-          userSkippedLimit++;
-          continue;
+        // 上限チェック: 上限に達した薬を除外
+        const activeMeds: Array<{ name: string }> = [];
+        for (const med of meds) {
+          const counterRef = db().collection('dailyCounts').doc(`${userId}_${med.medicationId}_${dateKey}`);
+          const counterSnap = await counterRef.get();
+          const currentTotal = counterSnap.exists ? (counterSnap.data()?.total ?? 0) : 0;
+          if (currentTotal < med.limitPerDay) {
+            activeMeds.push(med);
+          }
         }
 
-        try {
-          await admin.messaging().send({
-            token,
-            notification: { title: 'ObatLog', body: `${med.name} の時間だよ` },
-            webpush: { fcmOptions: { link: '/' } },
-          });
-          userSent++;
+        if (activeMeds.length === 0) continue;
+
+        if (notifyMethod === 'email') {
+          // メール通知
+          let email: string | undefined;
+          try {
+            const authUser = await admin.auth().getUser(userId);
+            email = authUser.email;
+          } catch {
+            console.warn(`[sendMedicationReminders] auth.getUser failed for ${userId}`);
+          }
+          if (!email) {
+            console.info('[sendMedicationReminders] skip email (no address)', { userId });
+            continue;
+          }
+
+          const html = buildReminderHtml(activeMeds.map(m => m.name));
+          await sendEmail(email, 'ObatLog リマインダー', html);
           totalSent++;
-        } catch (err) {
-          console.error(`FCM send error for user ${userId}:`, err);
-          userSendErrors++;
-        }
-      }
+        } else {
+          // FCM プッシュ通知（既存ロジック）
+          const token = userData?.notificationToken;
+          if (!token) {
+            console.info('[sendMedicationReminders] skip (no token)', { userId, timeSlot, medsCount: meds.length });
+            continue;
+          }
 
-      console.info('[sendMedicationReminders] user result', {
-        userId,
-        timeSlot,
-        medsCount: meds.length,
-        userSent,
-        userSkippedLimit,
-        userSendErrors,
-      });
+          let userSent = 0;
+          let userSendErrors = 0;
+          for (const med of activeMeds) {
+            try {
+              await admin.messaging().send({
+                token,
+                notification: { title: 'ObatLog', body: `${med.name} の時間だよ` },
+                webpush: { fcmOptions: { link: '/' } },
+              });
+              userSent++;
+              totalSent++;
+            } catch (err) {
+              console.error(`FCM send error for user ${userId}:`, err);
+              userSendErrors++;
+            }
+          }
+
+          console.info('[sendMedicationReminders] user result', {
+            userId, timeSlot, medsCount: meds.length,
+            activeMeds: activeMeds.length, userSent, userSendErrors,
+          });
+        }
+      } catch (err) {
+        // 1ユーザーの失敗が他に影響しない
+        console.error(`[sendMedicationReminders] error for user ${userId}:`, err);
+      }
     }
 
     console.info('[sendMedicationReminders] total result', { timeSlot, dateKey, totalSent });
