@@ -4,6 +4,7 @@ import { signOut } from '../lib/auth';
 import { apiFetch } from '../lib/api';
 import { getLang, setLang, t } from '../i18n/index';
 import { requestNotificationPermission } from '../lib/notifications';
+import { getMe, updateMe } from '../api/users';
 
 export default function SettingsPage() {
   const [lang, setLangState] = useState(getLang());
@@ -14,11 +15,21 @@ export default function SettingsPage() {
   const [notifyStatus, setNotifyStatus] = useState<'default' | 'granted' | 'denied'>('default');
   const [notifyError, setNotifyError] = useState('');
   const [notifyLoading, setNotifyLoading] = useState(false);
+  const [notifyMethod, setNotifyMethod] = useState<'push' | 'email'>('push');
+  const [userEmail, setUserEmail] = useState('');
+  const [methodLoading, setMethodLoading] = useState(false);
 
   useEffect(() => {
     if ('Notification' in window) {
       setNotifyStatus(Notification.permission as any);
     }
+  }, []);
+
+  useEffect(() => {
+    getMe().then(user => {
+      setNotifyMethod(user.notifyMethod ?? 'push');
+      setUserEmail(user.email);
+    }).catch(() => {});
   }, []);
 
   // 言語切替
@@ -45,6 +56,19 @@ export default function SettingsPage() {
       setNotifyStatus('denied');
     } finally {
       setNotifyLoading(false);
+    }
+  }
+
+  // 通知方法変更
+  async function handleNotifyMethodChange(method: 'push' | 'email') {
+    setMethodLoading(true);
+    try {
+      await updateMe({ notifyMethod: method });
+      setNotifyMethod(method);
+    } catch {
+      setError(t('errors.internal', lang));
+    } finally {
+      setMethodLoading(false);
     }
   }
 
@@ -102,23 +126,63 @@ export default function SettingsPage() {
       </button>
 
       {/* 通知 */}
-      <section className="bg-white border rounded-lg px-4 py-3">
-        <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">{t('settings.notifications' as any, lang)}</span>
-          {notifyStatus === 'granted' ? (
-            <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">ON</span>
-          ) : notifyStatus === 'denied' ? (
-            <span className="text-xs text-gray-400">{t('settings.notifyDenied' as any, lang)}</span>
-          ) : (
+      <section className="bg-white border rounded-lg px-4 py-3 space-y-3">
+        {/* 通知方法の選択 */}
+        <div>
+          <span className="text-sm text-gray-600">{t('settings.notifyMethod' as any, lang)}</span>
+          <div className="flex gap-2 mt-2">
             <button
-              onClick={handleEnableNotifications}
-              disabled={notifyLoading}
-              className="text-xs bg-amber-400 hover:bg-amber-500 text-white px-3 py-1 rounded-lg transition disabled:opacity-50"
+              onClick={() => handleNotifyMethodChange('push')}
+              disabled={methodLoading}
+              className={`flex-1 text-sm py-2 rounded-lg transition ${
+                notifyMethod === 'push'
+                  ? 'bg-amber-400 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              } disabled:opacity-50`}
             >
-              {notifyLoading ? '...' : t('settings.notifyEnable' as any, lang)}
+              {t('settings.notifyMethodPush' as any, lang)}
             </button>
-          )}
+            <button
+              onClick={() => handleNotifyMethodChange('email')}
+              disabled={methodLoading}
+              className={`flex-1 text-sm py-2 rounded-lg transition ${
+                notifyMethod === 'email'
+                  ? 'bg-amber-400 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              } disabled:opacity-50`}
+            >
+              {t('settings.notifyMethodEmail' as any, lang)}
+            </button>
+          </div>
         </div>
+
+        {/* プッシュ通知: 許可ボタン */}
+        {notifyMethod === 'push' && (
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-gray-600">{t('settings.notifications' as any, lang)}</span>
+            {notifyStatus === 'granted' ? (
+              <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">ON</span>
+            ) : notifyStatus === 'denied' ? (
+              <span className="text-xs text-gray-400">{t('settings.notifyDenied' as any, lang)}</span>
+            ) : (
+              <button
+                onClick={handleEnableNotifications}
+                disabled={notifyLoading}
+                className="text-xs bg-amber-400 hover:bg-amber-500 text-white px-3 py-1 rounded-lg transition disabled:opacity-50"
+              >
+                {notifyLoading ? '...' : t('settings.notifyEnable' as any, lang)}
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* メール通知: 送信先表示 */}
+        {notifyMethod === 'email' && userEmail && (
+          <p className="text-xs text-gray-500">
+            {(t('settings.notifyEmailTo' as any, lang) as string).replace('{email}', userEmail)}
+          </p>
+        )}
+
         {notifyError && (
           <p className="mt-2 text-xs text-amber-700 bg-amber-50 rounded p-2">
             {notifyError}
