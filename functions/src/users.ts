@@ -39,7 +39,7 @@ usersRouter.get('/me', verifyToken, async (req, res) => {
 
 // PUT /v1/users/me — language / notificationToken 更新
 usersRouter.put('/me', verifyToken, async (req, res) => {
-  const { uid } = req as AuthenticatedRequest;
+  const { uid, email } = req as AuthenticatedRequest;
   const { language, notificationToken } = req.body;
   const updates: Record<string, unknown> = {};
 
@@ -57,6 +57,8 @@ usersRouter.put('/me', verifyToken, async (req, res) => {
   }
 
   try {
+    // users/{uid} が未作成でも update で落ちないように先に保証する
+    await ensureUserDoc(uid, email);
     await db().collection('users').doc(uid).update(updates);
     return res.json({ id: uid, ...updates });
   } catch {

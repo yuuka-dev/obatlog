@@ -56,7 +56,7 @@ medicationsRouter.post('/', verifyToken, async (req, res) => {
   }
 });
 
-// PUT /v1/medications/:id — 薬を更新（name / limitPerDay のみ）
+// PUT /v1/medications/:id — 薬を更新（name / limitPerDay / 通知設定）
 medicationsRouter.put('/:id', verifyToken, async (req, res) => {
   const { uid } = req as AuthenticatedRequest;
   const id = req.params['id'] as string;
@@ -89,10 +89,13 @@ medicationsRouter.put('/:id', verifyToken, async (req, res) => {
       firestoreUpdates.notifyAt = notifyAt;
     }
     await ref.update(firestoreUpdates);
-    const responseData: Record<string, unknown> = { id, ...doc.data() };
-    if (firestoreUpdates.name) responseData.name = firestoreUpdates.name;
-    if (firestoreUpdates.limitPerDay !== undefined) responseData.limitPerDay = firestoreUpdates.limitPerDay;
-    return res.json(responseData);
+    // 返却値は「更新後」を返さないと、通知時刻が古い状態でクライアントに反映される
+    const updatedSnap = await ref.get();
+    const updatedData = updatedSnap.data();
+    if (!updatedData) {
+      return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to load updated medication.' } });
+    }
+    return res.json({ id: updatedSnap.id, ...updatedData });
   } catch (e) {
     console.error('medications error:', e);
     return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to update medication.' } });

@@ -11,9 +11,24 @@ export async function requestNotificationPermission(): Promise<void> {
     throw new Error('このブラウザは通知をサポートしていません');
   }
 
+  // Push/Notification は通常 secure context(HTTPS) 必須
+  if (typeof window !== 'undefined' && !window.isSecureContext) {
+    throw new Error('insecure-context');
+  }
+
+  if (!VAPID_KEY) {
+    // VAPID 未設定だと getToken が失敗して通知が有効化できない
+    throw new Error('no-vapid');
+  }
+
+  // すでに拒否済みだと再度プロンプトが出ない（ブラウザ挙動）
+  if (Notification.permission === 'denied') {
+    throw new Error('already-denied');
+  }
+
   const permission = await Notification.requestPermission();
   if (permission !== 'granted') {
-    throw new Error('通知が許可されませんでした');
+    throw new Error('denied');
   }
 
   // サービスワーカー登録
@@ -24,6 +39,9 @@ export async function requestNotificationPermission(): Promise<void> {
     vapidKey: VAPID_KEY,
     serviceWorkerRegistration: registration,
   });
+
+  // users/{uid} が未作成でも落ちないように先に保証する
+  await apiFetch('/v1/users/me');
 
   // トークンをサーバーに保存
   await apiFetch('/v1/users/me', {

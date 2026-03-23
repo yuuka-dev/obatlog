@@ -57,7 +57,7 @@ exports.medicationsRouter.post('/', auth_1.verifyToken, async (req, res) => {
         return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to create medication.' } });
     }
 });
-// PUT /v1/medications/:id — 薬を更新（name / limitPerDay のみ）
+// PUT /v1/medications/:id — 薬を更新（name / limitPerDay / 通知設定）
 exports.medicationsRouter.put('/:id', auth_1.verifyToken, async (req, res) => {
     const { uid } = req;
     const id = req.params['id'];
@@ -88,19 +88,20 @@ exports.medicationsRouter.put('/:id', auth_1.verifyToken, async (req, res) => {
             firestoreUpdates.notifyEnabled = notifyEnabled;
         }
         if (Array.isArray(notifyAt)) {
-            const timeRegex = /^([01]\d|2[0-3]):00$/;
+            const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
             if (notifyAt.length > 5 || notifyAt.some((t) => !timeRegex.test(t))) {
-                return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'notifyAt invalid. Use HH:00 format, max 5.' } });
+                return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'notifyAt invalid. Use HH:MM format, max 5.' } });
             }
             firestoreUpdates.notifyAt = notifyAt;
         }
         await ref.update(firestoreUpdates);
-        const responseData = { id, ...doc.data() };
-        if (firestoreUpdates.name)
-            responseData.name = firestoreUpdates.name;
-        if (firestoreUpdates.limitPerDay !== undefined)
-            responseData.limitPerDay = firestoreUpdates.limitPerDay;
-        return res.json(responseData);
+        // 返却値は「更新後」を返さないと、通知時刻が古い状態でクライアントに反映される
+        const updatedSnap = await ref.get();
+        const updatedData = updatedSnap.data();
+        if (!updatedData) {
+            return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to load updated medication.' } });
+        }
+        return res.json({ id: updatedSnap.id, ...updatedData });
     }
     catch (e) {
         console.error('medications error:', e);

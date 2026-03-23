@@ -20,6 +20,7 @@ async function ensureUserDoc(uid, email) {
             language: 'ja',
             createdAt: admin.firestore.FieldValue.serverTimestamp(),
             notificationToken: null,
+            adFree: false,
         });
     }
 }
@@ -38,7 +39,7 @@ exports.usersRouter.get('/me', auth_1.verifyToken, async (req, res) => {
 });
 // PUT /v1/users/me — language / notificationToken 更新
 exports.usersRouter.put('/me', auth_1.verifyToken, async (req, res) => {
-    const { uid } = req;
+    const { uid, email } = req;
     const { language, notificationToken } = req.body;
     const updates = {};
     if (language !== undefined) {
@@ -54,6 +55,8 @@ exports.usersRouter.put('/me', auth_1.verifyToken, async (req, res) => {
         return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'No valid fields.' } });
     }
     try {
+        // users/{uid} が未作成でも update で落ちないように先に保証する
+        await ensureUserDoc(uid, email);
         await db().collection('users').doc(uid).update(updates);
         return res.json({ id: uid, ...updates });
     }

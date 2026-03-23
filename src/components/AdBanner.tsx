@@ -38,10 +38,12 @@ export default function AdBanner() {
   return (
     <ins
       className="adsbygoogle"
-      style={{ display: 'block', width: 320, height: 50 }}
+      style={{ display: 'inline-block', width: 320, height: 50 }}
       data-ad-client={clientId}
       data-ad-slot={slotId}
-      data-ad-format="inline"
+      // 申請用HTMLに合わせて 320x50 固定
+      // data-ad-format を明示しない場合も動くが、意図を揃えるため固定を指定
+      data-ad-format="fixed"
     />
   );
 }
