@@ -8,7 +8,12 @@ import { buildReminderHtml } from './mailTemplate';
 const db = () => admin.firestore();
 
 export const sendMedicationReminders = onSchedule(
-  { schedule: '*/5 * * * *', timeZone: 'Asia/Tokyo', region: 'asia-northeast1' },
+  {
+    schedule: '*/5 * * * *',
+    timeZone: 'Asia/Tokyo',
+    region: 'asia-northeast1',
+    secrets: ['AZURE_TENANT_ID', 'AZURE_CLIENT_ID', 'AZURE_CLIENT_SECRET'],
+  },
   async () => {
     const now = new Date();
     const { timeSlot, dateKey } = getTokyoReminderSlot(now);
