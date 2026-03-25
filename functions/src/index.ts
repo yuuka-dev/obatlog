@@ -8,6 +8,7 @@ import { medicationsRouter } from './medications';
 import { intakesRouter } from './intakes';
 import { accountDeleteRouter } from './accountDelete';
 import { dataExportRouter } from './dataExport';
+import { demoRouter } from './demo';
 
 admin.initializeApp();
 
@@ -39,6 +40,7 @@ app.use('/v1/users', accountDeleteRouter);
 app.use('/v1/users', dataExportRouter);
 app.use('/v1/medications', medicationsRouter);
 app.use('/v1/intakes', intakesRouter);
+app.use('/v1/demo', demoRouter);
 
 // Functions v2 エクスポート（リージョン: 東京）
 export const api = onRequest(
@@ -47,3 +49,4 @@ export const api = onRequest(
 );
 
 export { sendMedicationReminders } from './notify';
+export { cleanupDemoUsers } from './cleanupDemo';

@@ -19,6 +19,15 @@
         { "fieldPath": "takenAt", "order": "DESCENDING" }
       ]
     }
+    ,
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "isDemo", "order": "ASCENDING" },
+        { "fieldPath": "demoExpiresAt", "order": "ASCENDING" }
+      ]
+    }
   ],
   "fieldOverrides": []
 }
