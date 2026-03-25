@@ -18,3 +18,4 @@
 | [ADR-0001](0001-firestore-no-direct-access.md) | Firestore クライアント直接アクセス禁止 | 承認 | 2026-03-25 |
 | [ADR-0002](0002-nextjs-static-export.md) | Next.js 静的エクスポート（SSG）採用 | 承認 | 2026-03-25 |
 | [ADR-0003](0003-flat-collection-structure.md) | サブコレクション不使用（フラット構造） | 承認 | 2026-03-25 |
+| [ADR-0004](0004-tech-stack-selection.md) | 技術スタック選定 | 承認 | 2026-03-25 |
