@@ -9,13 +9,12 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['json-summary', 'text', 'lcov'],
-  // coverageThreshold は main マージ後に有効化（base ブランチとの比較で失敗するため）
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 100,
-  //     functions: 100,
-  //     lines: 100,
-  //     statements: 100,
-  //   },
-  // },
+  coverageThreshold: {
+    global: {
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
+    },
+  },
 };
