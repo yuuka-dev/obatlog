@@ -16,3 +16,5 @@ public/sw.js
 .firebase/
 functions/node_modules/
 functions/lib/
+test-results/
+playwright-report/
