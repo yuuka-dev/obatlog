@@ -1,0 +1,175 @@
+第29大阪技術管理局 End-User License Agreement (EULA)
+==========================================
+
+Copyright (c) 2026 第29大阪技術管理局. All Rights Reserved.
+
+IMPORTANT — READ CAREFULLY BEFORE USING THIS SOFTWARE.
+
+This End-User License Agreement ("Agreement") is a legal agreement between
+you ("User") and the copyright holder(s) of obatlog ("Licensor") for the
+obatlog software, including all source code, documentation, and associated
+files (collectively, the "Software").
+
+By accessing, viewing, downloading, or using the Software in any way, you
+agree to be bound by the terms of this Agreement. If you do not agree to
+these terms, you must immediately cease all use of the Software and delete
+any copies in your possession.
+
+
+1. SOURCE CODE AVAILABILITY
+----------------------------
+The source code of the Software is made publicly available for reference
+and educational purposes only. Public availability of the source code does
+NOT constitute a grant of open-source rights and does NOT place the
+Software under any open-source license.
+
+
+2. GRANT OF LIMITED LICENSE
+----------------------------
+Subject to the terms of this Agreement, the Licensor grants you a limited,
+non-exclusive, non-transferable, revocable license to:
+
+  (a) View and read the source code for personal study, education, and
+      reference purposes;
+  (b) Run the Software locally on your own device for personal,
+      non-commercial evaluation and testing purposes only;
+  (c) Submit bug reports, suggestions, or feedback to the Licensor.
+
+
+3. RESTRICTIONS
+----------------
+Unless expressly authorized in writing by the Licensor, you shall NOT:
+
+  (a) Use the Software, in whole or in part, in any production environment
+      or for any commercial purpose;
+  (b) Copy, reproduce, distribute, redistribute, sublicense, sell, lease,
+      or otherwise transfer the Software or any portion thereof to any
+      third party;
+  (c) Modify, adapt, translate, reverse engineer, decompile, disassemble,
+      or create derivative works based on the Software;
+  (d) Remove, alter, or obscure any copyright notices, license texts, or
+      proprietary markings contained in the Software;
+  (e) Use the Software to create a competing product or service;
+  (f) Fork, mirror, or republish the Software's repository or source code
+      on any platform, hosting service, or distribution channel;
+  (g) Incorporate any portion of the Software into another software
+      product, whether open-source or proprietary;
+  (h) Use the Software's name, logo, or branding for endorsement or
+      promotional purposes without prior written consent.
+
+
+4. MEDICAL AND PHARMACEUTICAL DISCLAIMER
+------------------------------------------
+THE SOFTWARE IS DESIGNED FOR INFORMATIONAL AND EDUCATIONAL PURPOSES ONLY.
+
+  (a) The Software is NOT a medical device, NOT a certified pharmaceutical
+      system, and is NOT intended to be used for clinical decision-making,
+      prescription, dispensing, or any medical or pharmaceutical purpose
+      that may affect patient health or safety.
+  (b) The Licensor makes NO representations or warranties regarding the
+      accuracy, completeness, reliability, or suitability of any data,
+      algorithms, drug information, dosage calculations, or other content
+      provided by or through the Software.
+  (c) Under NO circumstances shall the Software be used as a substitute
+      for professional medical or pharmaceutical judgment. Users must
+      always consult qualified healthcare professionals for medical and
+      pharmaceutical decisions.
+  (d) The Licensor shall NOT be held liable for any injury, harm, loss,
+      or damage — including but not limited to adverse drug reactions,
+      medication errors, or dispensing errors — arising from the use of
+      or reliance upon the Software.
+
+
+5. INTELLECTUAL PROPERTY
+-------------------------
+All rights, title, and interest in and to the Software, including but not
+limited to all copyrights, patents, trade secrets, trademarks, and other
+intellectual property rights, are and shall remain the exclusive property
+of the Licensor. This Agreement does not convey any ownership interest in
+the Software to the User.
+
+
+6. NO WARRANTY
+---------------
+THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT,
+AND ACCURACY.
+
+THE LICENSOR DOES NOT WARRANT THAT THE SOFTWARE WILL BE UNINTERRUPTED,
+ERROR-FREE, SECURE, OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
+
+
+7. LIMITATION OF LIABILITY
+----------------------------
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL THE
+LICENSOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+CONSEQUENTIAL, OR EXEMPLARY DAMAGES (INCLUDING BUT NOT LIMITED TO LOSS OF
+DATA, LOSS OF PROFITS, BUSINESS INTERRUPTION, PERSONAL INJURY, OR DEATH)
+ARISING OUT OF OR IN CONNECTION WITH THE USE OF OR INABILITY TO USE THE
+SOFTWARE, EVEN IF THE LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGES.
+
+
+8. CONTRIBUTIONS
+-----------------
+Any contributions (including but not limited to code, documentation,
+suggestions, or feedback) submitted to the Licensor shall be subject to
+this Agreement. By submitting a contribution, you grant the Licensor a
+perpetual, irrevocable, worldwide, royalty-free, non-exclusive license to
+use, reproduce, modify, distribute, and sublicense the contribution as
+part of the Software.
+
+
+9. TERMINATION
+---------------
+  (a) This Agreement is effective until terminated.
+  (b) The Licensor may terminate this Agreement at any time, for any
+      reason, with or without notice.
+  (c) Your rights under this Agreement will terminate automatically
+      without notice if you fail to comply with any of its terms.
+  (d) Upon termination, you must immediately cease all use of the Software
+      and destroy all copies in your possession.
+  (e) Sections 4, 5, 6, 7, and 10 shall survive termination.
+
+
+10. GOVERNING LAW
+-------------------
+This Agreement shall be governed by and construed in accordance with the
+laws of Japan, without regard to its conflict of law provisions. Any
+disputes arising under or in connection with this Agreement shall be
+subject to the exclusive jurisdiction of the courts of Japan.
+
+
+11. AMENDMENTS
+---------------
+The Licensor reserves the right to modify this Agreement at any time. Any
+modifications will be effective upon posting of the updated Agreement in
+the Software's repository. Continued use of the Software after such
+modifications constitutes acceptance of the revised Agreement.
+
+
+12. SEVERABILITY
+-----------------
+If any provision of this Agreement is found to be unenforceable or invalid,
+that provision shall be limited or eliminated to the minimum extent
+necessary so that this Agreement shall otherwise remain in full force and
+effect.
+
+
+13. ENTIRE AGREEMENT
+----------------------
+This Agreement constitutes the entire agreement between you and the
+Licensor with respect to the Software and supersedes all prior or
+contemporaneous communications, understandings, and agreements, whether
+written or oral.
+
+
+14. CONTACT
+-------------
+For inquiries regarding commercial licensing, permissions, or other
+questions about this Agreement, please contact the Licensor through the
+Software's official repository or designated communication channels.
+
+---
+Last updated: 2026-03-25
