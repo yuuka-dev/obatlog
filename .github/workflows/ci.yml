@@ -26,9 +26,12 @@ jobs:
           NEXT_PUBLIC_FUNCTIONS_BASE_URL: ${{ secrets.NEXT_PUBLIC_FUNCTIONS_BASE_URL }}
           NEXT_PUBLIC_FIREBASE_VAPID_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_VAPID_KEY }}
 
-  # バックエンド: ビルド + テスト
+  # バックエンド: ビルド + テスト + カバレッジ
   functions:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      checks: write
     defaults:
       run:
         working-directory: functions
@@ -41,4 +44,10 @@ jobs:
           cache-dependency-path: functions/package-lock.json
       - run: npm ci
       - run: npm run build
-      - run: npm test
+      - run: npm test -- --coverage
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: functions
+          skip-step: all
