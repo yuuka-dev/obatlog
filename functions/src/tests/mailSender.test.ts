@@ -87,4 +87,41 @@ describe('sendEmail', () => {
     await expect(sendEmail('user@example.com', 's', '<p>b</p>'))
       .rejects.toThrow('Failed to get access token');
   });
+
+  test('環境変数未設定でメール送信をスキップする', async () => {
+    const original = process.env.AZURE_TENANT_ID;
+    delete process.env.AZURE_TENANT_ID;
+    try {
+      await sendEmail('user@example.com', 's', '<p>b</p>');
+      expect(mockFetch).not.toHaveBeenCalled();
+    } finally {
+      process.env.AZURE_TENANT_ID = original;
+    }
+  });
+
+  test('メール送信で非401エラーはそのままエラーを投げる', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => tokenResponse,
+    });
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      text: async () => 'Internal Server Error',
+    });
+
+    await expect(sendEmail('user@example.com', 's', '<p>b</p>'))
+      .rejects.toThrow('Graph API sendMail failed: 500');
+  });
+
+  test('401リトライ後も失敗でエラーを投げる', async () => {
+    mockFetch
+      .mockResolvedValueOnce({ ok: true, json: async () => tokenResponse })
+      .mockResolvedValueOnce({ ok: false, status: 401, text: async () => 'Unauthorized' })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ ...tokenResponse, access_token: 'new' }) })
+      .mockResolvedValueOnce({ ok: false, status: 500, text: async () => 'Error' });
+
+    await expect(sendEmail('user@example.com', 's', '<p>b</p>'))
+      .rejects.toThrow('Graph API sendMail failed: 500');
+  });
 });

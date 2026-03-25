@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  # フロントエンド: ビルド確認
+  # フロントエンド: テスト + ビルド確認
   frontend:
     runs-on: ubuntu-latest
     steps:
@@ -17,6 +17,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run test:frontend
       - run: npm run build
         env:
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
@@ -57,6 +58,9 @@ jobs:
   # バックエンド: ビルド + テスト
   functions:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      checks: write
     defaults:
       run:
         working-directory: functions
@@ -69,4 +73,10 @@ jobs:
           cache-dependency-path: functions/package-lock.json
       - run: npm ci
       - run: npm run build
-      - run: npm test
+      - run: npm test -- --coverage
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: functions
+          skip-step: all

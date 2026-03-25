@@ -10,6 +10,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "test": "cd functions && npm test",
+    "test:frontend": "vitest run",
     "prepare": "husky"
   },
   "dependencies": {
@@ -25,11 +26,16 @@
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^25.5.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "autoprefixer": "^10.4.27",
+    "happy-dom": "^20.8.8",
     "husky": "^9.1.7",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.1"
   }
 }
