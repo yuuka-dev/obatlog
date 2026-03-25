@@ -55,13 +55,9 @@ jobs:
           path: playwright-report/
           retention-days: 14
 
-  # バックエンド: ビルド + テスト
+  # バックエンド: ビルド + テスト + カバレッジ
   functions:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      checks: write
     defaults:
       run:
         working-directory: functions
@@ -75,9 +71,3 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test -- --coverage
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: github.event_name == 'pull_request'
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          working-directory: functions
-          skip-step: all
