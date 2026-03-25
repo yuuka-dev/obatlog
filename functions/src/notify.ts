@@ -12,7 +12,7 @@ export const sendMedicationReminders = onSchedule(
     schedule: '*/5 * * * *',
     timeZone: 'Asia/Tokyo',
     region: 'asia-northeast1',
-    secrets: ['AZURE_TENANT_ID', 'AZURE_CLIENT_ID', 'AZURE_CLIENT_SECRET', 'MAIL_FROM'],
+    secrets: ['AZURE_TENANT_ID', 'AZURE_CLIENT_ID', 'AZURE_CLIENT_SECRET'],
   },
   async () => {
     const now = new Date();
