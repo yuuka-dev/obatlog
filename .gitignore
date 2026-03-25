@@ -16,3 +16,4 @@ public/sw.js
 .firebase/
 functions/node_modules/
 functions/lib/
+functions/coverage/
