@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  # フロントエンド: ビルド確認
+  # フロントエンド: テスト + ビルド確認
   frontend:
     runs-on: ubuntu-latest
     steps:
@@ -17,6 +17,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run test:frontend
       - run: npm run build
         env:
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
