@@ -21,10 +21,16 @@ export default function LandingPage() {
         <p className="text-gray-500 mb-8">
           {t('lp.hero.subtitle' as any, lang)}
         </p>
-        <a href="/login"
-          className="inline-block bg-amber-400 hover:bg-amber-500 text-white px-8 py-3 rounded-xl text-lg font-medium shadow-lg shadow-amber-200 transition">
-          {t('lp.hero.cta' as any, lang)}
-        </a>
+        <div className="flex flex-col items-center gap-3">
+          <a href="/login"
+            className="inline-block bg-amber-400 hover:bg-amber-500 text-white px-8 py-3 rounded-xl text-lg font-medium shadow-lg shadow-amber-200 transition">
+            {t('lp.hero.cta' as any, lang)}
+          </a>
+          <a href="/demo"
+            className="inline-block text-amber-500 hover:text-amber-600 text-sm underline transition">
+            {t('lp.hero.demo' as any, lang)}
+          </a>
+        </div>
       </section>
 
       {/* 特徴3カード */}

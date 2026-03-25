@@ -133,5 +133,16 @@
   "settings.notifyMethod": "Notification method",
   "settings.notifyMethodPush": "Push notification",
   "settings.notifyMethodEmail": "Email",
-  "settings.notifyEmailTo": "Sends to {email}"
+  "settings.notifyEmailTo": "Sends to {email}",
+  "settings.demoEmail": "Email for notifications",
+  "settings.demoEmailPlaceholder": "example@mail.com",
+  "settings.demoEmailSave": "Save",
+  "settings.demoEmailSaved": "Saved",
+  "demo.settingUp": "Setting up your demo...",
+  "demo.setupError": "Failed to set up demo. Please try again.",
+  "demo.backToHome": "Back to home",
+  "demo.banner": "24-hour demo",
+  "demo.bannerRemaining": "{time} remaining",
+  "demo.bannerSignUp": "Create an account",
+  "lp.hero.demo": "Try the demo"
 }

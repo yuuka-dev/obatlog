@@ -6,6 +6,7 @@ import {
   sendPasswordResetEmail,
   onAuthStateChanged,
   signInWithPopup,
+  signInAnonymously as firebaseSignInAnonymously,
   GoogleAuthProvider,
   type User,
 } from 'firebase/auth';
@@ -42,5 +43,11 @@ export function getCurrentUser(): Promise<User | null> {
 export async function signInWithGoogle(): Promise<User> {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(auth, provider);
+  return result.user;
+}
+
+// 匿名認証（デモ用）
+export async function signInAnonymously(): Promise<User> {
+  const result = await firebaseSignInAnonymously(auth);
   return result.user;
 }
