@@ -66,6 +66,7 @@ afterAll(() => jest.restoreAllMocks());
 beforeEach(() => {
   jest.clearAllMocks();
   medsQueryGet.mockResolvedValue({ empty: true, size: 0, docs: [] });
+  delete process.env.BACKEND_PUSH_DELIVERY_ENABLED;
 });
 
 describe('sendMedicationReminders', () => {
@@ -76,6 +77,7 @@ describe('sendMedicationReminders', () => {
   });
 
   it('プッシュ通知を送信する', async () => {
+    process.env.BACKEND_PUSH_DELIVERY_ENABLED = 'true';
     medsQueryGet.mockResolvedValue({
       empty: false,
       size: 1,
@@ -96,6 +98,7 @@ describe('sendMedicationReminders', () => {
   });
 
   it('notifyMethod 未設定はプッシュ通知として扱う', async () => {
+    process.env.BACKEND_PUSH_DELIVERY_ENABLED = 'true';
     medsQueryGet.mockResolvedValue({
       empty: false, size: 1,
       docs: [{ id: 'med-1', data: () => ({ userId: 'u1', name: '薬A', limitPerDay: 3 }) }],
@@ -111,6 +114,7 @@ describe('sendMedicationReminders', () => {
   });
 
   it('FCMトークンがない場合はスキップ', async () => {
+    process.env.BACKEND_PUSH_DELIVERY_ENABLED = 'true';
     medsQueryGet.mockResolvedValue({
       empty: false, size: 1,
       docs: [{ id: 'med-1', data: () => ({ userId: 'u1', name: '薬A', limitPerDay: 3 }) }],
@@ -125,6 +129,7 @@ describe('sendMedicationReminders', () => {
   });
 
   it('FCM送信エラーでも処理を継続する', async () => {
+    process.env.BACKEND_PUSH_DELIVERY_ENABLED = 'true';
     medsQueryGet.mockResolvedValue({
       empty: false, size: 1,
       docs: [{ id: 'med-1', data: () => ({ userId: 'u1', name: '薬A', limitPerDay: 3 }) }],
@@ -216,6 +221,7 @@ describe('sendMedicationReminders', () => {
   });
 
   it('カウンターに total がない場合 0 にフォールバック', async () => {
+    process.env.BACKEND_PUSH_DELIVERY_ENABLED = 'true';
     medsQueryGet.mockResolvedValue({
       empty: false, size: 1,
       docs: [{ id: 'med-1', data: () => ({ userId: 'u1', name: '薬X', limitPerDay: 3 }) }],
@@ -249,6 +255,7 @@ describe('sendMedicationReminders', () => {
   });
 
   it('複数ユーザー・複数薬を正しくグループ化する', async () => {
+    process.env.BACKEND_PUSH_DELIVERY_ENABLED = 'true';
     medsQueryGet.mockResolvedValue({
       empty: false, size: 3,
       docs: [
@@ -269,6 +276,7 @@ describe('sendMedicationReminders', () => {
   });
 
   it('ユーザー単位のエラーが他ユーザーに影響しない', async () => {
+    process.env.BACKEND_PUSH_DELIVERY_ENABLED = 'true';
     medsQueryGet.mockResolvedValue({
       empty: false, size: 2,
       docs: [
@@ -286,5 +294,36 @@ describe('sendMedicationReminders', () => {
     await handler();
     // u1 はエラーで失敗、u2 は正常に送信
     expect(messagingSend).toHaveBeenCalledTimes(1);
+  });
+
+  it('BACKEND_PUSH_DELIVERY_ENABLED=false のときpush送信をスキップする', async () => {
+    process.env.BACKEND_PUSH_DELIVERY_ENABLED = 'false';
+    medsQueryGet.mockResolvedValue({
+      empty: false, size: 1,
+      docs: [{ id: 'med-1', data: () => ({ userId: 'u1', name: '薬A', limitPerDay: 3 }) }],
+    });
+    userDocGet.mockResolvedValue({
+      data: () => ({ notifyMethod: 'push', notificationToken: 'token' }),
+    });
+    counterDocGet.mockResolvedValue({ exists: false });
+
+    await handler();
+    expect(messagingSend).not.toHaveBeenCalled();
+  });
+
+  it('BACKEND_PUSH_DELIVERY_ENABLED=true のときpush送信する', async () => {
+    process.env.BACKEND_PUSH_DELIVERY_ENABLED = 'true';
+    medsQueryGet.mockResolvedValue({
+      empty: false, size: 1,
+      docs: [{ id: 'med-1', data: () => ({ userId: 'u1', name: '薬A', limitPerDay: 3 }) }],
+    });
+    userDocGet.mockResolvedValue({
+      data: () => ({ notifyMethod: 'push', notificationToken: 'token' }),
+    });
+    counterDocGet.mockResolvedValue({ exists: false });
+    messagingSend.mockResolvedValue('ok');
+
+    await handler();
+    expect(messagingSend).toHaveBeenCalled();
   });
 });

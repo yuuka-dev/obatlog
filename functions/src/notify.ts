@@ -80,6 +80,11 @@ export const sendMedicationReminders = onSchedule(
           await sendEmail(email, 'ObatLog リマインダー', html);
           totalSent++;
         } else {
+          // キルスイッチ: 環境変数で push 配送を制御
+          if (process.env.BACKEND_PUSH_DELIVERY_ENABLED !== 'true') {
+            console.info('[sendMedicationReminders] push delivery disabled by kill switch', { userId });
+            continue;
+          }
           // FCM プッシュ通知（既存ロジック）
           const token = userData?.notificationToken;
           if (!token) {
