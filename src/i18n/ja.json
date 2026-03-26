@@ -133,5 +133,16 @@
   "settings.notifyMethod": "通知方法",
   "settings.notifyMethodPush": "プッシュ通知",
   "settings.notifyMethodEmail": "メール",
-  "settings.notifyEmailTo": "{email} に送信します"
+  "settings.notifyEmailTo": "{email} に送信します",
+  "settings.demoEmail": "通知用メールアドレス",
+  "settings.demoEmailPlaceholder": "example@mail.com",
+  "settings.demoEmailSave": "保存",
+  "settings.demoEmailSaved": "保存しました",
+  "demo.settingUp": "デモを準備しています...",
+  "demo.setupError": "デモの準備に失敗しました。もう一度お試しください。",
+  "demo.backToHome": "ホームに戻る",
+  "demo.banner": "24時間限定デモ",
+  "demo.bannerRemaining": "残り {time}",
+  "demo.bannerSignUp": "アカウントを作成する",
+  "lp.hero.demo": "デモを試す"
 }

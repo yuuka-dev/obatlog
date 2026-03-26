@@ -18,6 +18,10 @@ export default function SettingsPage() {
   const [notifyMethod, setNotifyMethod] = useState<'push' | 'email'>('push');
   const [userEmail, setUserEmail] = useState('');
   const [methodLoading, setMethodLoading] = useState(false);
+  const [isDemo, setIsDemo] = useState(false);
+  const [demoEmail, setDemoEmail] = useState('');
+  const [demoEmailSaving, setDemoEmailSaving] = useState(false);
+  const [demoEmailSaved, setDemoEmailSaved] = useState(false);
 
   useEffect(() => {
     if ('Notification' in window) {
@@ -29,6 +33,8 @@ export default function SettingsPage() {
     getMe().then(user => {
       setNotifyMethod(user.notifyMethod ?? 'push');
       setUserEmail(user.email);
+      setIsDemo(user.isDemo ?? false);
+      if (user.demoEmail) setDemoEmail(user.demoEmail);
     }).catch(() => {});
   }, []);
 
@@ -69,6 +75,21 @@ export default function SettingsPage() {
       setError(t('errors.internal', lang));
     } finally {
       setMethodLoading(false);
+    }
+  }
+
+  // デモ用メールアドレス保存
+  async function handleDemoEmailSave() {
+    setDemoEmailSaving(true);
+    setDemoEmailSaved(false);
+    try {
+      await updateMe({ demoEmail });
+      setDemoEmailSaved(true);
+      setTimeout(() => setDemoEmailSaved(false), 2000);
+    } catch {
+      setError(t('errors.internal', lang));
+    } finally {
+      setDemoEmailSaving(false);
     }
   }
 
@@ -177,10 +198,37 @@ export default function SettingsPage() {
         )}
 
         {/* メール通知: 送信先表示 */}
-        {notifyMethod === 'email' && userEmail && (
+        {notifyMethod === 'email' && !isDemo && userEmail && (
           <p className="text-xs text-gray-500">
             {(t('settings.notifyEmailTo' as any, lang) as string).replace('{email}', userEmail)}
           </p>
+        )}
+
+        {/* デモ用メールアドレス入力 */}
+        {notifyMethod === 'email' && isDemo && (
+          <div className="space-y-2">
+            <label className="text-xs text-gray-500">
+              {t('settings.demoEmail' as any, lang)}
+            </label>
+            <div className="flex gap-2">
+              <input
+                type="email"
+                value={demoEmail}
+                onChange={e => setDemoEmail(e.target.value)}
+                placeholder={t('settings.demoEmailPlaceholder' as any, lang)}
+                className="flex-1 text-sm border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-300"
+              />
+              <button
+                onClick={handleDemoEmailSave}
+                disabled={demoEmailSaving || !demoEmail}
+                className="text-sm bg-amber-400 hover:bg-amber-500 text-white px-4 py-2 rounded-lg transition disabled:opacity-50"
+              >
+                {demoEmailSaved
+                  ? t('settings.demoEmailSaved' as any, lang)
+                  : t('settings.demoEmailSave' as any, lang)}
+              </button>
+            </div>
+          </div>
         )}
 
         {notifyError && (
@@ -190,13 +238,15 @@ export default function SettingsPage() {
         )}
       </section>
 
-      {/* データエクスポート */}
-      <button
-        onClick={handleExport}
-        className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg transition text-sm"
-      >
-        {t('settings.exportData' as any, lang)}
-      </button>
+      {/* データエクスポート（デモ時は非表示） */}
+      {!isDemo && (
+        <button
+          onClick={handleExport}
+          className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg transition text-sm"
+        >
+          {t('settings.exportData' as any, lang)}
+        </button>
+      )}
 
       {/* ログアウト */}
       <button
@@ -206,42 +256,44 @@ export default function SettingsPage() {
         {t('settings.logout' as any, lang)}
       </button>
 
-      {/* アカウント削除 */}
-      <section className="border-t pt-6">
-        <h2 className="text-sm font-medium text-gray-500 mb-3">
-          {t('settings.dangerZone' as any, lang)}
-        </h2>
-        {!confirmDelete ? (
-          <button
-            onClick={() => setConfirmDelete(true)}
-            className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 py-2 rounded-lg transition text-sm"
-          >
-            {t('settings.deleteAccount' as any, lang)}
-          </button>
-        ) : (
-          <div className="bg-gray-50 rounded-xl p-4 space-y-3">
-            <p className="text-sm text-gray-600">
-              {t('settings.deleteConfirm' as any, lang)}
-            </p>
-            {error && <p className="text-sm text-amber-700 bg-amber-50 rounded p-2">{error}</p>}
-            <div className="flex gap-2">
-              <button
-                onClick={handleDeleteAccount}
-                disabled={deleting}
-                className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded-lg transition text-sm disabled:opacity-50"
-              >
-                {deleting ? t('common.loading', lang) : t('settings.deleteConfirmYes' as any, lang)}
-              </button>
-              <button
-                onClick={() => setConfirmDelete(false)}
-                className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 py-2 rounded-lg transition text-sm"
-              >
-                {t('common.cancel', lang)}
-              </button>
+      {/* アカウント削除（デモ時は非表示） */}
+      {!isDemo && (
+        <section className="border-t pt-6">
+          <h2 className="text-sm font-medium text-gray-500 mb-3">
+            {t('settings.dangerZone' as any, lang)}
+          </h2>
+          {!confirmDelete ? (
+            <button
+              onClick={() => setConfirmDelete(true)}
+              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 py-2 rounded-lg transition text-sm"
+            >
+              {t('settings.deleteAccount' as any, lang)}
+            </button>
+          ) : (
+            <div className="bg-gray-50 rounded-xl p-4 space-y-3">
+              <p className="text-sm text-gray-600">
+                {t('settings.deleteConfirm' as any, lang)}
+              </p>
+              {error && <p className="text-sm text-amber-700 bg-amber-50 rounded p-2">{error}</p>}
+              <div className="flex gap-2">
+                <button
+                  onClick={handleDeleteAccount}
+                  disabled={deleting}
+                  className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded-lg transition text-sm disabled:opacity-50"
+                >
+                  {deleting ? t('common.loading', lang) : t('settings.deleteConfirmYes' as any, lang)}
+                </button>
+                <button
+                  onClick={() => setConfirmDelete(false)}
+                  className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 py-2 rounded-lg transition text-sm"
+                >
+                  {t('common.cancel', lang)}
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-      </section>
+          )}
+        </section>
+      )}
 
       {/* フッターリンク */}
       <section className="border-t pt-4 text-center text-xs text-gray-400 space-x-4">

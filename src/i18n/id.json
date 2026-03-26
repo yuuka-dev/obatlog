@@ -133,5 +133,16 @@
   "settings.notifyMethod": "Metode notifikasi",
   "settings.notifyMethodPush": "Notifikasi push",
   "settings.notifyMethodEmail": "Email",
-  "settings.notifyEmailTo": "Dikirim ke {email}"
+  "settings.notifyEmailTo": "Dikirim ke {email}",
+  "settings.demoEmail": "Email untuk notifikasi",
+  "settings.demoEmailPlaceholder": "example@mail.com",
+  "settings.demoEmailSave": "Simpan",
+  "settings.demoEmailSaved": "Tersimpan",
+  "demo.settingUp": "Menyiapkan demo...",
+  "demo.setupError": "Gagal menyiapkan demo. Coba lagi.",
+  "demo.backToHome": "Kembali ke beranda",
+  "demo.banner": "Demo 24 jam",
+  "demo.bannerRemaining": "Sisa {time}",
+  "demo.bannerSignUp": "Buat akun",
+  "lp.hero.demo": "Coba demo"
 }

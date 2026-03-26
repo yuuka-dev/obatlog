@@ -59,13 +59,17 @@ export const sendMedicationReminders = onSchedule(
         if (activeMeds.length === 0) continue;
 
         if (notifyMethod === 'email') {
-          // メール通知
+          // メール通知: デモユーザーは demoEmail を優先使用
           let email: string | undefined;
-          try {
-            const authUser = await admin.auth().getUser(userId);
-            email = authUser.email;
-          } catch {
-            console.warn(`[sendMedicationReminders] auth.getUser failed for ${userId}`);
+          if (userData?.isDemo === true) {
+            email = userData.demoEmail || undefined;
+          } else {
+            try {
+              const authUser = await admin.auth().getUser(userId);
+              email = authUser.email;
+            } catch {
+              console.warn(`[sendMedicationReminders] auth.getUser failed for ${userId}`);
+            }
           }
           if (!email) {
             console.info('[sendMedicationReminders] skip email (no address)', { userId });
