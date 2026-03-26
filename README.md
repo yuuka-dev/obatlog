@@ -8,8 +8,8 @@
 ![ホーム画面](public/sample-home.png)
 
 ## 公開先
-- **Webアプリ** : [ObatLog — 服薬記録・過量チェック](https://obatlog.osaka29.jp/)
-- **デモ版** : [https://obatlog.osaka29.jp/demo](https://obatlog.osaka29.jp/demo)
+- **Webアプリ** : [ObatLog — 服薬記録・過量チェック](https://obatlog.com/)
+- **デモ版** : [https://obatlog.com/demo](https://obatlog.com/demo)
 
 ## 概要
 
