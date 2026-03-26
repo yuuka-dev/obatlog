@@ -143,6 +143,30 @@ describe('PUT /v1/users/me', () => {
     expect(res.body.error.message).toContain('No valid fields');
   });
 
+  it('demoEmail を更新する', async () => {
+    const res = await request(app)
+      .put('/v1/users/me')
+      .send({ demoEmail: 'demo@example.com' });
+    expect(res.status).toBe(200);
+    expect(mockDocUpdate).toHaveBeenCalledWith({ demoEmail: 'demo@example.com' });
+  });
+
+  it('demoEmail を null にリセットできる', async () => {
+    const res = await request(app)
+      .put('/v1/users/me')
+      .send({ demoEmail: null });
+    expect(res.status).toBe(200);
+    expect(mockDocUpdate).toHaveBeenCalledWith({ demoEmail: null });
+  });
+
+  it('不正な demoEmail で 400', async () => {
+    const res = await request(app)
+      .put('/v1/users/me')
+      .send({ demoEmail: 'not-an-email' });
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('INVALID_REQUEST');
+  });
+
   it('エラー時は 500', async () => {
     mockDocUpdate.mockRejectedValueOnce(new Error('Firestore error'));
     const res = await request(app)

@@ -154,6 +154,37 @@ describe('sendMedicationReminders', () => {
     expect(mockSendEmail).toHaveBeenCalledWith('user@example.com', 'ObatLog リマインダー', '<html>reminder</html>');
   });
 
+  it('デモユーザーは demoEmail からメール送信する', async () => {
+    medsQueryGet.mockResolvedValue({
+      empty: false, size: 1,
+      docs: [{ id: 'med-1', data: () => ({ userId: 'u1', name: '薬Demo', limitPerDay: 3 }) }],
+    });
+    userDocGet.mockResolvedValue({
+      data: () => ({ notifyMethod: 'email', isDemo: true, demoEmail: 'demo@example.com' }),
+    });
+    counterDocGet.mockResolvedValue({ exists: false });
+
+    await handler();
+    // demoEmail を使って送信し、auth.getUser は呼ばない
+    expect(authGetUser).not.toHaveBeenCalled();
+    expect(mockSendEmail).toHaveBeenCalledWith('demo@example.com', 'ObatLog リマインダー', '<html>reminder</html>');
+  });
+
+  it('デモユーザーで demoEmail 未設定の場合はスキップ', async () => {
+    medsQueryGet.mockResolvedValue({
+      empty: false, size: 1,
+      docs: [{ id: 'med-1', data: () => ({ userId: 'u1', name: '薬Demo2', limitPerDay: 3 }) }],
+    });
+    userDocGet.mockResolvedValue({
+      data: () => ({ notifyMethod: 'email', isDemo: true, demoEmail: null }),
+    });
+    counterDocGet.mockResolvedValue({ exists: false });
+
+    await handler();
+    expect(authGetUser).not.toHaveBeenCalled();
+    expect(mockSendEmail).not.toHaveBeenCalled();
+  });
+
   it('auth.getUser 失敗時はスキップ', async () => {
     medsQueryGet.mockResolvedValue({
       empty: false, size: 1,

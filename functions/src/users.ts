@@ -4,7 +4,11 @@
 //       Firestore 書き込みに失敗するとユーザー登録自体が拒否されるリスクがある。
 import { Router } from 'express';
 import * as admin from 'firebase-admin';
+import { z } from 'zod';
 import { verifyToken, AuthenticatedRequest } from './middleware/auth';
+
+// demoEmail のバリデーションスキーマ
+const demoEmailSchema = z.string().email().max(254);
 
 export const usersRouter = Router();
 const db = () => admin.firestore();
@@ -58,6 +62,19 @@ usersRouter.put('/me', verifyToken, async (req, res) => {
       return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'notifyMethod must be push or email.' } });
     }
     updates.notifyMethod = notifyMethod;
+  }
+  // デモユーザー用メールアドレス更新（XSS サニタイズ: zod でメール形式バリデーション）
+  const { demoEmail } = req.body;
+  if (demoEmail !== undefined) {
+    if (demoEmail === null) {
+      updates.demoEmail = null;
+    } else {
+      const result = demoEmailSchema.safeParse(demoEmail);
+      if (!result.success) {
+        return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'demoEmail must be a valid email address.' } });
+      }
+      updates.demoEmail = result.data;
+    }
   }
   if (Object.keys(updates).length === 0) {
     return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'No valid fields.' } });
