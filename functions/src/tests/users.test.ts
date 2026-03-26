@@ -53,7 +53,7 @@ beforeAll(() => {
 
 beforeEach(() => jest.clearAllMocks());
 
-const userData = { email: 'test@test.com', language: 'ja', notificationToken: null, adFree: false, notifyMethod: 'push' };
+const userData = { email: 'test@test.com', language: 'ja', notificationToken: null, adFree: false, notifyMethod: 'email' };
 
 describe('GET /v1/users/me', () => {
   it('既存ユーザーのプロフィールを返す', async () => {
@@ -76,7 +76,7 @@ describe('GET /v1/users/me', () => {
     expect(mockDocSet).toHaveBeenCalledWith(expect.objectContaining({
       email: 'test@test.com',
       language: 'ja',
-      notifyMethod: 'push',
+      notifyMethod: 'email',
     }));
   });
 
