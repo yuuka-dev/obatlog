@@ -154,12 +154,13 @@ jobs:
 
       - name: バージョンバンプ実行
         if: steps.bump.outputs.skip != 'true'
+        env:
+          HUSKY: '0'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase
-          # husky フックを無効化して npm version を実行（CI環境ではテスト不要）
-          HUSKY=0 npm version ${{ steps.bump.outputs.bump_type }} -m "[skip ci] chore(release): v%s"
+          npm version --ignore-scripts ${{ steps.bump.outputs.bump_type }} -m "[skip ci] chore(release): v%s"
 
       - name: CHANGELOG 生成
         if: steps.bump.outputs.skip != 'true'
@@ -167,7 +168,9 @@ jobs:
 
       - name: CHANGELOG コミット + push
         if: steps.bump.outputs.skip != 'true'
+        env:
+          HUSKY: '0'
         run: |
           git add CHANGELOG.md
-          HUSKY=0 git commit -m "[skip ci] docs: CHANGELOG.md を更新" || true
+          git commit -m "[skip ci] docs: CHANGELOG.md を更新" || true
           git push --follow-tags
