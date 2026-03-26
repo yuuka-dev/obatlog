@@ -144,5 +144,11 @@
   "demo.banner": "24時間限定デモ",
   "demo.bannerRemaining": "残り {time}",
   "demo.bannerSignUp": "アカウントを作成する",
-  "lp.hero.demo": "デモを試す"
+  "lp.hero.demo": "デモを試す",
+  "settings.changelog": "更新履歴",
+  "changelog.title": "更新履歴",
+  "update.title": "アップデートしました",
+  "update.message": "バージョン {version} に更新されました",
+  "update.close": "閉じる",
+  "update.showChangelog": "更新履歴を見る"
 }
