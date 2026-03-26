@@ -33,7 +33,10 @@ non-exclusive, non-transferable, revocable license to:
       reference purposes;
   (b) Run the Software locally on your own device for personal,
       non-commercial evaluation and testing purposes only;
-  (c) Submit bug reports, suggestions, or feedback to the Licensor.
+  (c) Submit bug reports, suggestions, or feedback to the Licensor;
+  (d) Modify the Software solely for personal, non-commercial evaluation
+      and testing, and create and submit patches or pull requests to the
+      Licensor.
 
 
 3. RESTRICTIONS
@@ -46,7 +49,9 @@ Unless expressly authorized in writing by the Licensor, you shall NOT:
       or otherwise transfer the Software or any portion thereof to any
       third party;
   (c) Modify, adapt, translate, reverse engineer, decompile, disassemble,
-      or create derivative works based on the Software;
+      or create derivative works based on the Software, except as expressly
+      permitted in Section 2 for personal evaluation, testing, and
+      submitting contributions to the Licensor;
   (d) Remove, alter, or obscure any copyright notices, license texts, or
       proprietary markings contained in the Software;
   (e) Use the Software to create a competing product or service;
@@ -172,4 +177,4 @@ questions about this Agreement, please contact the Licensor through the
 Software's official repository or designated communication channels.
 
 ---
-Last updated: 2026-03-25
+Last updated: 2026-03-26
