@@ -146,66 +146,19 @@ export default function SettingsPage() {
         <span className="text-gray-800 font-medium">{langLabel}</span>
       </button>
 
-      {/* 通知 */}
+      {/* 通知（メール通知のみ表示。push通知UIは将来LINE/Androidネイティブ追加時に復活予定） */}
       <section className="bg-white border rounded-lg px-4 py-3 space-y-3">
-        {/* 通知方法の選択 */}
-        <div>
-          <span className="text-sm text-gray-600">{t('settings.notifyMethod' as any, lang)}</span>
-          <div className="flex gap-2 mt-2">
-            <button
-              onClick={() => handleNotifyMethodChange('push')}
-              disabled={methodLoading}
-              className={`flex-1 text-sm py-2 rounded-lg transition ${
-                notifyMethod === 'push'
-                  ? 'bg-amber-400 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              } disabled:opacity-50`}
-            >
-              {t('settings.notifyMethodPush' as any, lang)}
-            </button>
-            <button
-              onClick={() => handleNotifyMethodChange('email')}
-              disabled={methodLoading}
-              className={`flex-1 text-sm py-2 rounded-lg transition ${
-                notifyMethod === 'email'
-                  ? 'bg-amber-400 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              } disabled:opacity-50`}
-            >
-              {t('settings.notifyMethodEmail' as any, lang)}
-            </button>
-          </div>
-        </div>
-
-        {/* プッシュ通知: 許可ボタン */}
-        {notifyMethod === 'push' && (
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-gray-600">{t('settings.notifications' as any, lang)}</span>
-            {notifyStatus === 'granted' ? (
-              <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">ON</span>
-            ) : notifyStatus === 'denied' ? (
-              <span className="text-xs text-gray-400">{t('settings.notifyDenied' as any, lang)}</span>
-            ) : (
-              <button
-                onClick={handleEnableNotifications}
-                disabled={notifyLoading}
-                className="text-xs bg-amber-400 hover:bg-amber-500 text-white px-3 py-1 rounded-lg transition disabled:opacity-50"
-              >
-                {notifyLoading ? '...' : t('settings.notifyEnable' as any, lang)}
-              </button>
-            )}
-          </div>
-        )}
+        <span className="text-sm text-gray-600">{t('settings.notifications' as any, lang)}</span>
 
         {/* メール通知: 送信先表示 */}
-        {notifyMethod === 'email' && !isDemo && userEmail && (
+        {!isDemo && userEmail && (
           <p className="text-xs text-gray-500">
             {(t('settings.notifyEmailTo' as any, lang) as string).replace('{email}', userEmail)}
           </p>
         )}
 
         {/* デモ用メールアドレス入力 */}
-        {notifyMethod === 'email' && isDemo && (
+        {isDemo && (
           <div className="space-y-2">
             <label className="text-xs text-gray-500">
               {t('settings.demoEmail' as any, lang)}
@@ -297,6 +250,7 @@ export default function SettingsPage() {
 
       {/* フッターリンク */}
       <section className="border-t pt-4 text-center text-xs text-gray-400 space-x-4">
+        <a href="/changelog" className="hover:text-gray-600">{t('settings.changelog' as any, lang)}</a>
         <a href="/privacy" className="hover:text-gray-600">{t('nav.privacy' as any, lang)}</a>
         <a href="/terms" className="hover:text-gray-600">{t('nav.terms' as any, lang)}</a>
       </section>

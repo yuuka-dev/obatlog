@@ -144,5 +144,11 @@
   "demo.banner": "Demo 24 jam",
   "demo.bannerRemaining": "Sisa {time}",
   "demo.bannerSignUp": "Buat akun",
-  "lp.hero.demo": "Coba demo"
+  "lp.hero.demo": "Coba demo",
+  "settings.changelog": "Catatan Rilis",
+  "changelog.title": "Catatan Rilis",
+  "update.title": "Aplikasi Diperbarui",
+  "update.message": "Diperbarui ke versi {version}",
+  "update.close": "Tutup",
+  "update.showChangelog": "Lihat Catatan Rilis"
 }

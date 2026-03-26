@@ -24,7 +24,7 @@ async function ensureUserDoc(uid: string, email: string): Promise<void> {
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       notificationToken: null,
       adFree: false,
-      notifyMethod: 'push',
+      notifyMethod: 'email',
     });
   }
 }

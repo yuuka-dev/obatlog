@@ -144,5 +144,11 @@
   "demo.banner": "24-hour demo",
   "demo.bannerRemaining": "{time} remaining",
   "demo.bannerSignUp": "Create an account",
-  "lp.hero.demo": "Try the demo"
+  "lp.hero.demo": "Try the demo",
+  "settings.changelog": "Release Notes",
+  "changelog.title": "Release Notes",
+  "update.title": "App Updated",
+  "update.message": "Updated to version {version}",
+  "update.close": "Close",
+  "update.showChangelog": "View Release Notes"
 }

@@ -71,3 +71,102 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test -- --coverage
+
+  # バージョン自動バンプ + CHANGELOG生成（main push 時のみ）
+  version-bump:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [frontend, functions]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: version-bump
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: バージョンバンプ判定 + 実行
+        id: bump
+        run: |
+          # 最新タグからのコミットを解析
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LATEST_TAG" ]; then
+            RANGE="HEAD"
+          else
+            RANGE="${LATEST_TAG}..HEAD"
+          fi
+
+          # README.md のみの変更かチェック
+          if [ -n "$LATEST_TAG" ]; then
+            CHANGED_FILES=$(git diff --name-only "$LATEST_TAG" HEAD)
+            NON_README=$(echo "$CHANGED_FILES" | grep -v '^README.md$' || true)
+            if [ -z "$NON_README" ]; then
+              echo "skip=true" >> $GITHUB_OUTPUT
+              echo "README.md のみの変更のためスキップ"
+              exit 0
+            fi
+          fi
+
+          # コミットメッセージ解析
+          COMMITS=$(git log --pretty=format:"%s" $RANGE 2>/dev/null || echo "")
+          if [ -z "$COMMITS" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # CI自動コミットはスキップ
+          COMMITS=$(echo "$COMMITS" | grep -v '^\[skip ci\]' || true)
+          if [ -z "$COMMITS" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          BUMP_TYPE=""
+          # BREAKING CHANGE 検出（major）
+          if echo "$COMMITS" | grep -qE '^(feat|fix|update)!|BREAKING CHANGE:'; then
+            BUMP_TYPE="major"
+          # feat 検出（minor）
+          elif echo "$COMMITS" | grep -qE '^feat(\(|:)'; then
+            BUMP_TYPE="minor"
+          # fix/update 検出（patch）
+          elif echo "$COMMITS" | grep -qE '^(fix|update)(\(|:)'; then
+            BUMP_TYPE="patch"
+          fi
+
+          if [ -z "$BUMP_TYPE" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "バンプ対象のコミットなし"
+            exit 0
+          fi
+
+          echo "skip=false" >> $GITHUB_OUTPUT
+          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+
+      - name: バージョンバンプ実行
+        if: steps.bump.outputs.skip != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          npm version ${{ steps.bump.outputs.bump_type }} -m "[skip ci] chore(release): v%s"
+
+      - name: CHANGELOG 生成
+        if: steps.bump.outputs.skip != 'true'
+        run: npx conventional-changelog -p angular -i CHANGELOG.md -s
+
+      - name: CHANGELOG コミット + push
+        if: steps.bump.outputs.skip != 'true'
+        run: |
+          git add CHANGELOG.md
+          git commit -m "[skip ci] docs: CHANGELOG.md を更新" || true
+          git push --follow-tags
