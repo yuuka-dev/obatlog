@@ -58,6 +58,46 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* 薬学生ブログ（機能カード直後、スクショの上） */}
+      <section className="bg-blue-50/50 px-6 py-12">
+        <div className="max-w-lg mx-auto">
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold text-gray-700">
+              開発者ブログ、はじめました
+            </h2>
+            <p className="text-sm text-gray-500 mt-2">
+              ObatLogの使い方や、おくすりの豆知識をお届けします
+            </p>
+          </div>
+          <div className="space-y-3">
+            {[
+              { href: '/blog/prevent-forgetting/', icon: '💊', title: '飲み忘れを防ぐコツ', desc: '薬の飲み忘れを減らすための実践的なテクニック' },
+              { href: '/blog/medication-routine/', icon: '📅', title: '服薬を習慣化する方法', desc: '薬を毎日続けるためのモチベーション維持と習慣づくり' },
+              { href: '/blog/getting-started/', icon: '🚀', title: 'ObatLogの始め方', desc: 'アカウント登録から薬の追加、服薬記録まで' },
+            ].map(post => (
+              <a
+                key={post.href}
+                href={post.href}
+                className="block bg-white border rounded-xl p-4 hover:shadow-md transition"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="text-xl mt-0.5">{post.icon}</span>
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-800 mb-1">{post.title}</h3>
+                    <p className="text-xs text-gray-500">{post.desc}</p>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+          <div className="text-center mt-4">
+            <a href="/blog/" className="text-sm text-amber-500 hover:text-amber-600 transition">
+              もっと読む →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* 利用例スクリーンショット */}
       <section className="px-6 py-12 max-w-lg mx-auto">
         <h2 className="text-xl font-bold text-gray-700 text-center mb-6">
@@ -82,34 +122,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* おくすりコラム（ブログ最新記事） */}
-      <section className="px-6 py-12 max-w-lg mx-auto">
-        <h2 className="text-xl font-bold text-gray-700 text-center mb-6">
-          おくすりコラム
-        </h2>
-        <div className="space-y-3">
-          {[
-            { href: '/blog/prevent-forgetting/', title: '飲み忘れを防ぐコツ', desc: '薬の飲み忘れを減らすための実践的なテクニック' },
-            { href: '/blog/medication-routine/', title: '服薬を習慣化する方法', desc: '薬を毎日続けるためのモチベーション維持と習慣づくり' },
-            { href: '/blog/getting-started/', title: 'ObatLogの始め方', desc: 'アカウント登録から薬の追加、服薬記録まで' },
-          ].map(post => (
-            <a
-              key={post.href}
-              href={post.href}
-              className="block bg-white border rounded-xl p-4 hover:shadow-md transition"
-            >
-              <h3 className="text-sm font-bold text-gray-800 mb-1">{post.title}</h3>
-              <p className="text-xs text-gray-500">{post.desc}</p>
-            </a>
-          ))}
-        </div>
-        <div className="text-center mt-4">
-          <a href="/blog/" className="text-sm text-amber-500 hover:text-amber-600 transition">
-            もっと読む →
-          </a>
-        </div>
-      </section>
-
       {/* フッター */}
       <footer className="px-6 py-8 text-center text-xs text-gray-400">
         <div className="flex justify-center gap-4 mb-2">
@@ -131,6 +143,7 @@ export default function LandingPage() {
           {t('lp.footer.contact' as any, lang)}{' '}
           <a href="mailto:support@obatlog.com" className="hover:text-gray-600 transition">support@obatlog.com</a>
         </p>
+        <p className="mb-2 text-gray-300">医療監修：現役薬剤師</p>
         © 2026 ObatLog
       </footer>
     </div>
