@@ -150,5 +150,15 @@
   "update.title": "App Updated",
   "update.message": "Updated to version {version}",
   "update.close": "Close",
-  "update.showChangelog": "View Release Notes"
+  "update.showChangelog": "View Release Notes",
+  "blog.title": "Blog",
+  "blog.subtitle": "Tips and guides for using ObatLog",
+  "blog.categoryGuide": "Guides",
+  "blog.categoryTips": "Tips",
+  "blog.readMore": "Read more",
+  "blog.backToList": "← Back to blog",
+  "blog.publishedAt": "Published",
+  "blog.author": "Author",
+  "blog.relatedPosts": "Related posts",
+  "nav.blog": "Blog"
 }

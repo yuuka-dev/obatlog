@@ -150,5 +150,15 @@
   "update.title": "アップデートしました",
   "update.message": "バージョン {version} に更新されました",
   "update.close": "閉じる",
-  "update.showChangelog": "更新履歴を見る"
+  "update.showChangelog": "更新履歴を見る",
+  "blog.title": "ブログ",
+  "blog.subtitle": "ObatLogの使い方やコツをご紹介",
+  "blog.categoryGuide": "使い方ガイド",
+  "blog.categoryTips": "Tips",
+  "blog.readMore": "続きを読む",
+  "blog.backToList": "← ブログ一覧に戻る",
+  "blog.publishedAt": "公開日",
+  "blog.author": "著者",
+  "blog.relatedPosts": "関連記事",
+  "nav.blog": "ブログ"
 }

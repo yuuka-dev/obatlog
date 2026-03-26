@@ -77,6 +77,9 @@ export default function LandingPage() {
       {/* フッター */}
       <footer className="px-6 py-8 text-center text-xs text-gray-400">
         <div className="flex justify-center gap-4 mb-2">
+          <a href="/blog/" className="hover:text-gray-600 transition">
+            {t('nav.blog' as any, lang)}
+          </a>
           <a href="/privacy/" className="hover:text-gray-600 transition">
             {t('privacy' as any, lang)}
           </a>

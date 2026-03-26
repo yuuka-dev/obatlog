@@ -4,4 +4,11 @@
   <url><loc>https://obatlog.osaka29.jp/login/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://obatlog.osaka29.jp/terms/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://obatlog.osaka29.jp/privacy/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://obatlog.osaka29.jp/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://obatlog.osaka29.jp/blog/getting-started/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.osaka29.jp/blog/notification-setup/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.osaka29.jp/blog/demo-features/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.osaka29.jp/blog/prevent-forgetting/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.osaka29.jp/blog/prevent-overdose/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.osaka29.jp/blog/build-medication-habit/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

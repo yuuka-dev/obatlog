@@ -150,5 +150,15 @@
   "update.title": "Aplikasi Diperbarui",
   "update.message": "Diperbarui ke versi {version}",
   "update.close": "Tutup",
-  "update.showChangelog": "Lihat Catatan Rilis"
+  "update.showChangelog": "Lihat Catatan Rilis",
+  "blog.title": "Blog",
+  "blog.subtitle": "Tips dan panduan menggunakan ObatLog",
+  "blog.categoryGuide": "Panduan",
+  "blog.categoryTips": "Tips",
+  "blog.readMore": "Baca selengkapnya",
+  "blog.backToList": "← Kembali ke blog",
+  "blog.publishedAt": "Diterbitkan",
+  "blog.author": "Penulis",
+  "blog.relatedPosts": "Artikel terkait",
+  "nav.blog": "Blog"
 }
