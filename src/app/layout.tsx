@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     description: '服薬記録・過量チェックアプリ',
   },
   robots: { index: true, follow: true },
+  other: {
+    'google-adsense-account': 'ca-pub-9797235637202654',
+  },
   alternates: {
     canonical: `${site}/`,
     languages: {
