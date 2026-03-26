@@ -4,6 +4,7 @@ import TabNav from './TabNav';
 import SideNav from './SideNav';
 import AdBanner from './AdBanner';
 import DemoBanner from './DemoBanner';
+import UpdateModal from './UpdateModal';
 import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { listMedications } from '../api/medications';
@@ -73,6 +74,7 @@ export default function AppLayout({ active, children }: AppLayoutProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <UpdateModal isDemo={userData?.isDemo ?? false} />
       {userData?.isDemo && userData.demoExpiresAt && (
         <DemoBanner
           expiresAtSeconds={userData.demoExpiresAt._seconds}
