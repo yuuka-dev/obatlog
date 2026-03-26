@@ -18,7 +18,7 @@ const app = express();
 const allowedOrigins = [
   'https://obatlog.web.app',
   'https://obatlog.firebaseapp.com',
-  'https://obatlog.osaka29.jp',
+  'https://obatlog.com',
   'http://localhost:4321',
   'http://localhost:5000',
 ];
