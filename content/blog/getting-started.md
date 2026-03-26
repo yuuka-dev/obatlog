@@ -3,6 +3,7 @@ title: "ObatLogの始め方"
 description: "アカウント登録から薬の追加、服薬記録まで。ObatLogの基本的な使い方を解説します。"
 date: "2026-03-27"
 category: "guide"
+order: 1
 ---
 
 ObatLogは、毎日の服薬をシンプルに記録できるウェブアプリです。この記事では、はじめてObatLogを使う方向けに、基本的な使い方をご紹介します。

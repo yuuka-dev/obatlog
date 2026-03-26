@@ -8,8 +8,16 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+      {/* ヘッダーナビ */}
+      <nav className="px-6 pt-4 max-w-lg mx-auto flex justify-between items-center">
+        <span className="text-sm font-bold text-gray-700">ObatLog</span>
+        <a href="/blog/" className="text-sm text-amber-500 hover:text-amber-600 transition">
+          ブログ
+        </a>
+      </nav>
+
       {/* ヒーローセクション */}
-      <section className="px-6 pt-16 pb-12 text-center max-w-lg mx-auto">
+      <section className="px-6 pt-12 pb-12 text-center max-w-lg mx-auto">
         <div className="mb-4">
           <p className="text-xs text-gray-400 mb-2">{t('lp.langLabel' as any, lang)}</p>
           <LangSwitcher current={lang} />
@@ -74,6 +82,34 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* おくすりコラム（ブログ最新記事） */}
+      <section className="px-6 py-12 max-w-lg mx-auto">
+        <h2 className="text-xl font-bold text-gray-700 text-center mb-6">
+          おくすりコラム
+        </h2>
+        <div className="space-y-3">
+          {[
+            { href: '/blog/prevent-forgetting/', title: '飲み忘れを防ぐコツ', desc: '薬の飲み忘れを減らすための実践的なテクニック' },
+            { href: '/blog/medication-routine/', title: '服薬を習慣化する方法', desc: '薬を毎日続けるためのモチベーション維持と習慣づくり' },
+            { href: '/blog/getting-started/', title: 'ObatLogの始め方', desc: 'アカウント登録から薬の追加、服薬記録まで' },
+          ].map(post => (
+            <a
+              key={post.href}
+              href={post.href}
+              className="block bg-white border rounded-xl p-4 hover:shadow-md transition"
+            >
+              <h3 className="text-sm font-bold text-gray-800 mb-1">{post.title}</h3>
+              <p className="text-xs text-gray-500">{post.desc}</p>
+            </a>
+          ))}
+        </div>
+        <div className="text-center mt-4">
+          <a href="/blog/" className="text-sm text-amber-500 hover:text-amber-600 transition">
+            もっと読む →
+          </a>
+        </div>
+      </section>
+
       {/* フッター */}
       <footer className="px-6 py-8 text-center text-xs text-gray-400">
         <div className="flex justify-center gap-4 mb-2">
@@ -93,7 +129,7 @@ export default function LandingPage() {
         </p>
         <p className="mb-2">
           {t('lp.footer.contact' as any, lang)}{' '}
-          <a href="mailto:contract@osaka29.jp" className="hover:text-gray-600 transition">contract@osaka29.jp</a>
+          <a href="mailto:support@obatlog.com" className="hover:text-gray-600 transition">support@obatlog.com</a>
         </p>
         © 2026 ObatLog
       </footer>
