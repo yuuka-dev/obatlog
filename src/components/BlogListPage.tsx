@@ -28,10 +28,12 @@ export default function BlogListPage({ posts }: BlogListPageProps) {
         <h1 className="text-2xl font-bold text-gray-800 mt-4 mb-6">ブログ</h1>
 
         {/* カテゴリタブ */}
-        <div className="flex gap-2 mb-8">
+        <div className="flex gap-2 mb-8" role="tablist">
           {(Object.keys(CATEGORY_LABELS) as Array<'all' | BlogCategory>).map(key => (
             <button
               key={key}
+              role="tab"
+              aria-selected={filter === key}
               onClick={() => setFilter(key)}
               className={`text-sm px-4 py-2 rounded-lg transition ${
                 filter === key

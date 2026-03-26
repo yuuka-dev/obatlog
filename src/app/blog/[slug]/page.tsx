@@ -4,6 +4,9 @@ import type { Metadata } from 'next';
 
 const site = getSiteUrl();
 
+// 未定義slugへのアクセスを404にする（静的エクスポートのため）
+export const dynamicParams = false;
+
 // 全記事のslugを静的生成
 export function generateStaticParams() {
   return getAllSlugs().map(slug => ({ slug }));
