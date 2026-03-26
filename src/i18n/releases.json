@@ -1,0 +1,28 @@
+{
+  "1.0.0": {
+    "date": "2026-03-26",
+    "changes": {
+      "ja": [
+        "初回リリース",
+        "服薬記録・過量チェック・通知機能",
+        "デモ機能",
+        "Google ログイン対応",
+        "多言語対応（日本語・英語・インドネシア語）"
+      ],
+      "en": [
+        "Initial release",
+        "Medication tracking, overdose check, notifications",
+        "Demo mode",
+        "Google sign-in support",
+        "Multi-language support (Japanese, English, Indonesian)"
+      ],
+      "id": [
+        "Rilis pertama",
+        "Pencatatan obat, pemeriksaan overdosis, notifikasi",
+        "Mode demo",
+        "Dukungan login Google",
+        "Dukungan multi-bahasa (Jepang, Inggris, Indonesia)"
+      ]
+    }
+  }
+}
