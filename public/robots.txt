@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://obatlog.osaka29.jp/sitemap.xml
+Sitemap: https://obatlog.com/sitemap.xml
