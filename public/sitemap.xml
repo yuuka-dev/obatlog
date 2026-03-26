@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://obatlog.com/</loc><changefreq>weekly</changefreq><priority>1</priority></url>
   <url><loc>https://obatlog.com/login/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://obatlog.com/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://obatlog.com/blog/getting-started/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.com/blog/notification-setup/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.com/blog/demo-mode/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.com/blog/prevent-forgetting/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.com/blog/od-prevention/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://obatlog.com/blog/medication-routine/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://obatlog.com/terms/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://obatlog.com/privacy/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
 </urlset>
