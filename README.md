@@ -7,6 +7,10 @@
 
 ![ホーム画面](public/sample-home.png)
 
+## 公開先
+- **Webアプリ** : [ObatLog — 服薬記録・過量チェック](https://obatlog.osaka29.jp/)
+- **デモ版** : [https://obatlog.osaka29.jp/demo](https://obatlog.osaka29.jp/demo)
+
 ## 概要
 
 このプロジェクトは私自身のお薬のみ忘れ防止のために開発した。
