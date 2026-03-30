@@ -74,7 +74,7 @@ export default function UpdateModal({ isDemo }: UpdateModalProps) {
 
         <div className="flex flex-col gap-2 pt-2">
           <a
-            href="/changelog"
+            href="/changelog/"
             className="text-center text-sm text-amber-600 hover:text-amber-700 transition"
           >
             {t('update.showChangelog' as any, lang)}

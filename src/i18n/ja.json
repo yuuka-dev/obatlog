@@ -146,6 +146,7 @@
   "demo.bannerSignUp": "アカウントを作成する",
   "lp.hero.demo": "デモを試す",
   "settings.changelog": "更新履歴",
+  "settings.blog": "開発者ブログ",
   "changelog.title": "更新履歴",
   "update.title": "アップデートしました",
   "update.message": "バージョン {version} に更新されました",

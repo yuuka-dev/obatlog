@@ -25,7 +25,7 @@ export default function ChangelogPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 py-6 space-y-6">
-      <a href="/settings" className="text-sm text-gray-400 hover:text-gray-600">
+      <a href="/settings/" className="text-sm text-gray-400 hover:text-gray-600">
         {t('legal.back' as any, lang)}
       </a>
       <h1 className="text-xl font-bold text-gray-800">

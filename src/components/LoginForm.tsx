@@ -122,9 +122,9 @@ export default function LoginForm() {
                   return (
                     <>
                       {parts[0]}
-                      <a href="/terms" className="underline hover:text-gray-600">{t('terms' as any, lang)}</a>
+                      <a href="/terms/" className="underline hover:text-gray-600">{t('terms' as any, lang)}</a>
                       {parts[1]}
-                      <a href="/privacy" className="underline hover:text-gray-600">{t('privacy' as any, lang)}</a>
+                      <a href="/privacy/" className="underline hover:text-gray-600">{t('privacy' as any, lang)}</a>
                       {parts[2]}
                     </>
                   );

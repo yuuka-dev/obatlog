@@ -153,7 +153,7 @@ export default function IntakeForm() {
       {meds.length === 0 ? (
         <div className="text-center py-8 space-y-2">
           <p className="text-gray-400">{t('empty.home.noMedications', lang)}</p>
-          <a href="/medications" className="text-amber-500 text-sm underline">
+          <a href="/medications/" className="text-amber-500 text-sm underline">
             {t('nav.medications', lang)} →
           </a>
         </div>
