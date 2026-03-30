@@ -16,13 +16,14 @@ export interface BlogPostMeta {
   description: string;
   date: string;
   category: BlogCategory;
+  order: number;
 }
 
 export interface BlogPost extends BlogPostMeta {
   contentHtml: string;
 }
 
-const REQUIRED_FIELDS = ['title', 'description', 'date', 'category'] as const;
+const REQUIRED_FIELDS = ['title', 'description', 'date', 'category', 'order'] as const;
 const VALID_CATEGORIES: BlogCategory[] = ['tips', 'guide'];
 
 // frontmatterバリデーション（不備時はビルドエラー）
@@ -37,6 +38,9 @@ function validateFrontmatter(data: Record<string, unknown>, filePath: string): v
   }
   if (isNaN(Date.parse(data.date as string))) {
     throw new Error(`date の形式が不正です（YYYY-MM-DD）: ${filePath}`);
+  }
+  if (typeof data.order !== 'number' || !Number.isInteger(data.order) || data.order < 1) {
+    throw new Error(`order は正の整数が必要です: ${filePath}`);
   }
 }
 
@@ -54,9 +58,15 @@ export function getAllPosts(): BlogPostMeta[] {
       description: data.description as string,
       date: data.date as string,
       category: data.category as BlogCategory,
+      order: data.order as number,
     };
   });
-  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  // 仕様: date DESC → order ASC の複合ソート
+  return posts.sort((a, b) => {
+    const dateDiff = new Date(b.date).getTime() - new Date(a.date).getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return a.order - b.order;
+  });
 }
 
 // 全slugの配列（generateStaticParams 用）
@@ -81,6 +91,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost> {
     description: data.description as string,
     date: data.date as string,
     category: data.category as BlogCategory,
+    order: data.order as number,
     contentHtml: result.toString(),
   };
 }
