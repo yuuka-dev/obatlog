@@ -45,13 +45,25 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     headline: post.title,
     description: post.description,
     datePublished: post.date,
+    dateModified: post.date,
     author: {
       '@type': 'Organization',
-      name: 'ObatLog',
+      name: '第29大阪技術局',
+      url: `${site}/`,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'ObatLog',
+      name: '第29大阪技術局',
+      url: `${site}/`,
+    },
+    reviewedBy: {
+      '@type': 'Person',
+      name: '監修薬剤師',
+      jobTitle: 'Pharmacist',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${site}/blog/${slug}/`,
     },
     url: `${site}/blog/${slug}/`,
   };
