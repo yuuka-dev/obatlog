@@ -1,4 +1,84 @@
 {
+  "1.3.1": {
+    "date": "2026-03-28",
+    "changes": {
+      "ja": [
+        "ランディングページ改善・記事リライト",
+        "医療監修表記を追加"
+      ],
+      "en": [
+        "Landing page improvements & article rewrite",
+        "Added medical supervision credits"
+      ],
+      "id": [
+        "Perbaikan halaman utama & penulisan ulang artikel",
+        "Menambahkan keterangan pengawasan medis"
+      ]
+    }
+  },
+  "1.3.0": {
+    "date": "2026-03-27",
+    "changes": {
+      "ja": [
+        "ブログ記事9本追加（飲み合わせ・高齢者・こども等）",
+        "トップページのCSR問題を修正（SEO改善）",
+        "ランディングページにブログセクション追加"
+      ],
+      "en": [
+        "Added 9 blog articles (drug interactions, elderly, children, etc.)",
+        "Fixed CSR issue on top page (SEO improvement)",
+        "Added blog section to landing page"
+      ],
+      "id": [
+        "Menambahkan 9 artikel blog (interaksi obat, lansia, anak, dll.)",
+        "Memperbaiki masalah CSR di halaman utama (peningkatan SEO)",
+        "Menambahkan bagian blog ke halaman utama"
+      ]
+    }
+  },
+  "1.2.0": {
+    "date": "2026-03-27",
+    "changes": {
+      "ja": [
+        "開発者ブログを追加（初期記事6本）",
+        "ドメインを obatlog.com に統一",
+        "問い合わせ先を support@obatlog.com に変更"
+      ],
+      "en": [
+        "Added developer blog (6 initial articles)",
+        "Unified domain to obatlog.com",
+        "Updated contact to support@obatlog.com"
+      ],
+      "id": [
+        "Menambahkan blog developer (6 artikel awal)",
+        "Menyatukan domain ke obatlog.com",
+        "Memperbarui kontak ke support@obatlog.com"
+      ]
+    }
+  },
+  "1.1.0": {
+    "date": "2026-03-26",
+    "changes": {
+      "ja": [
+        "バージョン更新通知モーダルを追加",
+        "更新履歴ページを追加",
+        "設定画面に更新履歴リンクを追加",
+        "通知方法をメールに一本化"
+      ],
+      "en": [
+        "Added version update notification modal",
+        "Added changelog page",
+        "Added changelog link to settings",
+        "Unified notification method to email"
+      ],
+      "id": [
+        "Menambahkan modal notifikasi pembaruan versi",
+        "Menambahkan halaman riwayat pembaruan",
+        "Menambahkan tautan riwayat pembaruan ke pengaturan",
+        "Menyatukan metode notifikasi ke email"
+      ]
+    }
+  },
   "1.0.0": {
     "date": "2026-03-26",
     "changes": {

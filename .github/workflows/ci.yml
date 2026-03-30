@@ -152,6 +152,17 @@ jobs:
           echo "skip=false" >> $GITHUB_OUTPUT
           echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
 
+      - name: コミットメッセージ保存（releases.json 用）
+        if: steps.bump.outputs.skip != 'true'
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LATEST_TAG" ]; then
+            RANGE="HEAD"
+          else
+            RANGE="${LATEST_TAG}..HEAD"
+          fi
+          git log --pretty=format:"%s" $RANGE | grep -v '^\[skip ci\]' > /tmp/release_commits.txt || true
+
       - name: バージョンバンプ実行
         if: steps.bump.outputs.skip != 'true'
         env:
@@ -162,15 +173,19 @@ jobs:
           git pull --rebase
           npm version --ignore-scripts ${{ steps.bump.outputs.bump_type }} -m "[skip ci] chore(release): v%s"
 
+      - name: releases.json 更新
+        if: steps.bump.outputs.skip != 'true'
+        run: node scripts/update-releases.mjs /tmp/release_commits.txt
+
       - name: CHANGELOG 生成
         if: steps.bump.outputs.skip != 'true'
         run: npx conventional-changelog -p angular -i CHANGELOG.md -s
 
-      - name: CHANGELOG コミット + push
+      - name: CHANGELOG + releases.json コミット + push
         if: steps.bump.outputs.skip != 'true'
         env:
           HUSKY: '0'
         run: |
-          git add CHANGELOG.md
-          git commit -m "[skip ci] docs: CHANGELOG.md を更新" || true
+          git add CHANGELOG.md src/i18n/releases.json
+          git commit -m "[skip ci] docs: CHANGELOG.md・releases.json を更新" || true
           git push --follow-tags
