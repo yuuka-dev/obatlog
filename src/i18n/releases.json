@@ -1,4 +1,24 @@
 {
+  "1.4.0": {
+    "date": "2026-03-30",
+    "changes": {
+      "ja": [
+        "全ページの title / meta description を最適化（#40）",
+        "JSON-LD 構造化データを実装（#41）",
+        "更新履歴の欠損修正 + ブログ並び順を仕様通りに実装"
+      ],
+      "en": [
+        "Optimize title/meta description of all pages (#40)",
+        "Implement JSON-LD structured data (#41)",
+        "Corrected missing update history + Implemented blog sort order according to specifications"
+      ],
+      "id": [
+        "Optimalkan judul/deskripsi meta semua halaman (#40)",
+        "Menerapkan data terstruktur JSON-LD (#41)",
+        "Memperbaiki riwayat pembaruan yang hilang + Menerapkan urutan blog sesuai spesifikasi"
+      ]
+    }
+  },
   "1.3.2": {
     "date": "2026-03-30",
     "changes": {
