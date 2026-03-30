@@ -4,13 +4,14 @@ import { getSiteUrl } from '@/lib/site';
 const site = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | ObatLog',
+  title: '利用規約',
   description:
-    'Terms of Service for ObatLog, a personal medication log web app. Not a medical device.',
+    'ObatLogの利用規約です。サービスのご利用条件・免責事項についてご確認ください。',
   alternates: { canonical: `${site}/terms/` },
   openGraph: {
-    title: 'Terms of Service | ObatLog',
-    description: 'Terms of Service for ObatLog.',
+    title: '利用規約 | ObatLog',
+    description:
+      'ObatLogの利用規約です。サービスのご利用条件・免責事項についてご確認ください。',
     url: `${site}/terms/`,
     siteName: 'ObatLog',
     locale: 'ja_JP',

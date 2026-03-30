@@ -8,9 +8,12 @@ const site = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${site}/`),
-  title: { default: 'ObatLog — 服薬記録・過量チェック', template: '%s | ObatLog' },
+  title: {
+    default: 'ObatLog｜お薬の飲み忘れ・飲みすぎを防ぐ服薬記録アプリ',
+    template: '%s | ObatLog',
+  },
   description:
-    '毎日の服薬を記録し、1日の上限チェックで過量を防ぐシンプルなウェブアプリ（PWA）。医療機器ではありません。',
+    '毎日の服薬をワンタップで記録。過量服薬（OD）チェックと飲み忘れ通知で安心の服薬管理を。登録無料・スマホでサクッと使えるPWA対応アプリ。',
   applicationName: 'ObatLog',
   manifest: '/manifest.json',
   openGraph: {
@@ -18,13 +21,15 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     url: site,
     siteName: 'ObatLog',
-    title: 'ObatLog — 服薬記録・過量チェック',
-    description: '毎日の服薬を記録し、過量を防ぐシンプルなウェブアプリ。',
+    title: 'ObatLog｜お薬の飲み忘れ・飲みすぎを防ぐ服薬記録アプリ',
+    description:
+      '毎日の服薬をワンタップで記録。過量服薬チェックと飲み忘れ通知で安心の服薬管理を。登録無料・スマホでサクッと使えるアプリ。',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ObatLog',
-    description: '服薬記録・過量チェックアプリ',
+    title: 'ObatLog｜お薬の飲み忘れ・飲みすぎを防ぐ服薬記録アプリ',
+    description:
+      '毎日の服薬をワンタップで記録。過量服薬チェックと飲み忘れ通知で安心の服薬管理を。',
   },
   robots: { index: true, follow: true },
   other: {
