@@ -250,9 +250,10 @@ export default function SettingsPage() {
 
       {/* フッターリンク */}
       <section className="border-t pt-4 text-center text-xs text-gray-400 space-x-4">
-        <a href="/changelog" className="hover:text-gray-600">{t('settings.changelog' as any, lang)}</a>
-        <a href="/privacy" className="hover:text-gray-600">{t('nav.privacy' as any, lang)}</a>
-        <a href="/terms" className="hover:text-gray-600">{t('nav.terms' as any, lang)}</a>
+        <a href="/blog/" className="hover:text-gray-600">{t('settings.blog' as any, lang)}</a>
+        <a href="/changelog/" className="hover:text-gray-600">{t('settings.changelog' as any, lang)}</a>
+        <a href="/privacy/" className="hover:text-gray-600">{t('nav.privacy' as any, lang)}</a>
+        <a href="/terms/" className="hover:text-gray-600">{t('nav.terms' as any, lang)}</a>
       </section>
 
       {/* 言語ボトムシート */}

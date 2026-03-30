@@ -46,7 +46,7 @@ export default function DemoBanner({ expiresAtSeconds, isPC }: DemoBannerProps) 
       <span className="text-amber-600">{remainingLabel}</span>
       <span className="text-amber-600 mx-2">·</span>
       <a
-        href="/login"
+        href="/login/"
         className="text-amber-500 hover:text-amber-600 underline transition"
       >
         {t('demo.bannerSignUp' as any, lang)}

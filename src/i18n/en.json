@@ -146,6 +146,7 @@
   "demo.bannerSignUp": "Create an account",
   "lp.hero.demo": "Try the demo",
   "settings.changelog": "Release Notes",
+  "settings.blog": "Developer Blog",
   "changelog.title": "Release Notes",
   "update.title": "App Updated",
   "update.message": "Updated to version {version}",
