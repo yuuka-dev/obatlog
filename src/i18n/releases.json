@@ -1,4 +1,18 @@
 {
+  "1.4.1": {
+    "date": "2026-03-30",
+    "changes": {
+      "ja": [
+        "内部リンク末尾スラッシュ統一 + 設定画面にブログリンク追加"
+      ],
+      "en": [
+        "Unify the trailing slash of internal links + add blog link to settings screen"
+      ],
+      "id": [
+        "Satukan garis miring pada tautan internal + tambahkan tautan blog ke layar pengaturan"
+      ]
+    }
+  },
   "1.4.0": {
     "date": "2026-03-30",
     "changes": {
