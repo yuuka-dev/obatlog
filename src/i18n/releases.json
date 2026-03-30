@@ -1,4 +1,18 @@
 {
+  "1.3.2": {
+    "date": "2026-03-30",
+    "changes": {
+      "ja": [
+        "更新履歴の欠損修正 + ブログ並び順を仕様通りに実装"
+      ],
+      "en": [
+        "Corrected missing update history + Implemented blog sort order according to specifications"
+      ],
+      "id": [
+        "Memperbaiki riwayat pembaruan yang hilang + Menerapkan urutan blog sesuai spesifikasi"
+      ]
+    }
+  },
   "1.3.1": {
     "date": "2026-03-28",
     "changes": {
